@@ -3,6 +3,7 @@
 !/.gitignore
 !/index.html
 !/.nojekyll
+!/vercel.json
 !/site/
 !/demos/
 !/brand/
