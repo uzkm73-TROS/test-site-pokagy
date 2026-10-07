@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Шиномонтаж «Протектор»</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@600;800&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --graphite: #24272B;
+    --asphalt: #31353A;
+    --asphalt-2: #3B4046;
+    --rubber: #17181A;
+    --signal: #F5B800;
+    --signal-press: #D9A300;
+    --concrete: #9A9EA4;
+    --chalk: #ECEDEF;
+    --display: "Fira Sans Extra Condensed", "Arial Narrow", sans-serif;
+    --text: "Golos Text", system-ui, sans-serif;
+    --gutter: 16px;
+    --radius: 6px;
+  }
+  @media (min-width: 720px) { :root { --gutter: 40px; } }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--graphite);
+    color: var(--chalk);
+    font: 400 17px/1.55 var(--text);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; }
+  button { font: inherit; color: inherit; }
+  :focus-visible { outline: 3px solid var(--signal); outline-offset: 3px; }
+
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 var(--gutter); }
+
+  /* Плашка демо */
+  .demo-bar {
+    background: var(--rubber);
+    color: var(--concrete);
+    font-size: 13px;
+    padding: 8px var(--gutter);
+    text-align: center;
+  }
+  .demo-bar a { color: var(--chalk); }
+
+  /* Шапка */
+  .top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 18px; padding-bottom: 18px;
+  }
+  .logo { font: 800 26px/1 var(--display); letter-spacing: .01em; text-decoration: none; }
+  .logo span { display: block; font: 500 12px/1.3 var(--text); color: var(--concrete); letter-spacing: 0; margin-top: 3px; }
+  .phone { font-weight: 600; text-decoration: none; white-space: nowrap; }
+  .phone small { display: block; font-weight: 400; font-size: 12px; color: var(--concrete); text-align: right; }
+
+  /* Переключатель режима */
+  .mode {
+    display: inline-grid; grid-template-columns: 1fr 1fr;
+    background: var(--asphalt); border-radius: 999px; padding: 4px;
+    margin-top: 8px;
+  }
+  .mode button {
+    border: 0; background: transparent; border-radius: 999px;
+    padding: 9px 16px; font-weight: 500; font-size: 15px; cursor: pointer;
+    color: var(--concrete); transition: background .2s, color .2s;
+  }
+  .mode button[aria-pressed="true"] { background: var(--chalk); color: var(--rubber); }
+
+  /* Первый экран */
+  section.hero { position: relative; overflow: hidden; padding: 6px 0 44px; }
+  .hero-grid { position: relative; z-index: 2; }
+  .hero h1 {
+    font: 800 clamp(58px, 16.5vw, 150px)/.86 var(--display);
+    text-transform: uppercase; letter-spacing: -.005em;
+    margin: 28px 0 18px; max-width: 8ch;
+  }
+  .hero h1, .hero p.lead { text-shadow: 0 2px 18px var(--graphite), 0 0 6px var(--graphite); }
+  .hero p.lead { max-width: 30ch; color: var(--concrete); margin: 0 0 26px; font-size: 18px; }
+  .hero p.lead strong { color: var(--chalk); font-weight: 500; }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    background: var(--signal); color: var(--rubber);
+    font: 600 18px/1 var(--text); text-decoration: none;
+    border: 0; border-radius: var(--radius); padding: 18px 26px; cursor: pointer;
+    transition: background .15s, transform .15s;
+  }
+  .btn:hover { background: var(--signal-press); }
+  .btn:active { transform: translateY(1px); }
+  .btn.ghost { background: transparent; color: var(--chalk); box-shadow: inset 0 0 0 2px var(--asphalt-2); }
+  .btn.ghost:hover { box-shadow: inset 0 0 0 2px var(--concrete); }
+
+  .hero-facts { display: flex; gap: 28px; margin-top: 34px; color: var(--concrete); font-size: 14px; flex-wrap: wrap; }
+  .hero-facts b { display: block; color: var(--chalk); font: 600 22px/1.1 var(--display); letter-spacing: .02em; }
+
+  /* Колесо */
+  .wheel-stage {
+    position: absolute; z-index: 1;
+    width: 104vw; aspect-ratio: 1;
+    right: -56vw; top: 64px;
+    pointer-events: none;
+  }
+  .hero-facts { position: relative; }
+  @media (min-width: 600px) and (max-width: 899px) {
+    .hero h1 { font-size: 12vw; }
+    .wheel-stage { width: 560px; right: -250px; top: 40px; }
+  }
+  @media (min-width: 900px) {
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; min-height: 640px; }
+    .hero h1 { font-size: min(140px, 8.6vw); }
+    .wheel-stage { position: absolute; right: -150px; top: 50%; width: 700px; max-width: none; margin: -350px 0 0; }
+  }
+  .wheel-roll { width: 100%; height: 100%; animation: roll-in 1.4s cubic-bezier(.2,.75,.25,1) both; }
+  .wheel { width: 100%; height: 100%; display: block; filter: drop-shadow(0 18px 40px rgba(0, 0, 0, .55)); }
+  .rider {
+    position: fixed; top: 0; right: -30px; z-index: 15;
+    width: 84px; aspect-ratio: 1;
+    pointer-events: none;
+    opacity: 0; transition: opacity .35s;
+  }
+  .rider .wheel { filter: drop-shadow(0 8px 16px rgba(0, 0, 0, .6)); }
+  .rider.on { opacity: 1; }
+  @media (min-width: 900px) { .rider { width: 132px; right: -40px; } }
+  @keyframes roll-in {
+    from { transform: translateX(70%) rotate(220deg); opacity: 0; }
+    to   { transform: translateX(0) rotate(0); opacity: 1; }
+  }
+
+  /* Протектор: кромка под первым экраном */
+  .tread-strip {
+    height: 22px;
+    background:
+      linear-gradient(135deg, var(--asphalt) 25%, transparent 25%) 0 0 / 22px 22px,
+      linear-gradient(225deg, var(--asphalt) 25%, transparent 25%) 0 0 / 22px 22px,
+      var(--rubber);
+  }
+
+  section { padding: 64px 0; }
+  h2 {
+    font: 800 clamp(40px, 9vw, 72px)/.95 var(--display);
+    text-transform: uppercase; margin: 0 0 14px; max-width: 14ch;
+  }
+  .section-lead { color: var(--concrete); max-width: 46ch; margin: 0 0 32px; }
+
+  /* Калькулятор */
+  .calc { display: grid; gap: 28px; }
+  .calc > * { min-width: 0; }
+  @media (min-width: 900px) { .calc { grid-template-columns: 1.35fr 1fr; align-items: start; } }
+  fieldset { border: 0; margin: 0 0 26px; padding: 0; min-width: 0; }
+  legend { font-weight: 600; margin-bottom: 12px; padding: 0; }
+  .radii {
+    display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px;
+    scrollbar-width: none; margin: 0 calc(var(--gutter) * -1); padding-left: var(--gutter); padding-right: var(--gutter);
+  }
+  @media (min-width: 720px) { .radii { flex-wrap: wrap; margin: 0; padding-left: 0; padding-right: 0; } }
+  .radii::-webkit-scrollbar { display: none; }
+  .chip input, .opt input { position: absolute; opacity: 0; pointer-events: none; }
+  .chip span {
+    display: grid; place-items: center; min-width: 62px; height: 62px; padding: 0 10px;
+    border-radius: 50%; background: var(--asphalt);
+    font: 800 22px/1 var(--display); cursor: pointer;
+    box-shadow: inset 0 0 0 2px transparent; transition: background .15s, color .15s;
+  }
+  .chip input:checked + span { background: var(--signal); color: var(--rubber); }
+  .chip input:focus-visible + span, .opt input:focus-visible + span { outline: 3px solid var(--signal); outline-offset: 3px; }
+
+  .opts { display: grid; gap: 8px; }
+  .opt span {
+    display: flex; justify-content: space-between; gap: 16px; align-items: center;
+    background: var(--asphalt); border-radius: var(--radius); padding: 15px 16px; cursor: pointer;
+    box-shadow: inset 0 0 0 2px transparent; transition: box-shadow .15s;
+  }
+  .opt span em { font-style: normal; color: var(--concrete); font-size: 15px; white-space: nowrap; }
+  .opt input:checked + span { box-shadow: inset 0 0 0 2px var(--signal); }
+  .opt input:checked + span em { color: var(--signal); }
+  .seg { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+  .total {
+    background: var(--rubber); border-radius: var(--radius); padding: 26px 22px;
+    position: sticky; top: 16px;
+  }
+  .total .sum { font: 800 clamp(56px, 15vw, 84px)/1 var(--display); margin: 4px 0 6px; font-variant-numeric: tabular-nums; }
+  .total .size { color: var(--concrete); font-size: 15px; margin: 0 0 4px; }
+  .total ul { list-style: none; padding: 0; margin: 14px 0 22px; color: var(--concrete); font-size: 15px; }
+  .total li { padding: 6px 0; border-top: 1px solid var(--asphalt); display: flex; justify-content: space-between; gap: 12px; }
+  .total .btn { width: 100%; }
+  .note { font-size: 13px; color: var(--concrete); margin-top: 12px; }
+
+  /* Прайс */
+  .price-list { display: grid; gap: 0; max-width: 760px; }
+  .price-row {
+    display: grid; grid-template-columns: 1fr auto; gap: 4px 20px;
+    padding: 18px 0; border-bottom: 1px solid var(--asphalt);
+  }
+  .price-row b { font-weight: 500; }
+  .price-row span { color: var(--concrete); font-size: 15px; grid-column: 1; }
+  .price-row i { font: 600 22px/1.2 var(--display); font-style: normal; grid-row: 1; grid-column: 2; white-space: nowrap; }
+
+  /* Зона выезда */
+  .zone { display: grid; gap: 28px; align-items: center; }
+  @media (min-width: 900px) { .zone { grid-template-columns: 1fr 1fr; } }
+  .zone svg { width: 100%; max-width: 460px; justify-self: center; }
+  .zone-list { list-style: none; padding: 0; margin: 0; }
+  .zone-list li { padding: 16px 0; border-bottom: 1px solid var(--asphalt); display: flex; justify-content: space-between; gap: 16px; }
+  .zone-list b { font: 600 22px/1.2 var(--display); }
+
+  /* Сезон */
+  .season { background: var(--asphalt); position: relative; }
+  .season::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 0; height: 8px;
+    background: repeating-linear-gradient(-45deg, var(--signal) 0 14px, var(--rubber) 14px 28px);
+  }
+  .slots { display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; margin: 0 calc(var(--gutter) * -1); padding: 0 var(--gutter) 6px; }
+  @media (min-width: 720px) { .slots { flex-wrap: wrap; margin: 0; padding: 0; } }
+  .slots::-webkit-scrollbar { display: none; }
+  .day { background: var(--graphite); border-radius: var(--radius); padding: 14px; min-width: 150px; }
+  .day h3 { margin: 0 0 10px; font: 600 20px/1.1 var(--display); }
+  .day h3 small { display: block; font: 400 13px/1.4 var(--text); color: var(--concrete); }
+  .times { display: flex; flex-wrap: wrap; gap: 6px; }
+  .times button {
+    border: 0; border-radius: 4px; background: var(--asphalt-2); padding: 7px 10px; cursor: pointer; font-size: 15px;
+    font-variant-numeric: tabular-nums;
+  }
+  .times button[aria-pressed="true"] { background: var(--signal); color: var(--rubber); }
+  .times button:disabled { opacity: .35; text-decoration: line-through; cursor: default; }
+  .slot-cta { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+  .slot-cta p { margin: 0; color: var(--concrete); }
+
+  /* Отзывы и контакты */
+  .two { display: grid; gap: 40px; }
+  @media (min-width: 900px) { .two { grid-template-columns: 1fr 1fr; } }
+  .contacts dl { margin: 0 0 26px; display: grid; gap: 14px; }
+  .contacts dt { color: var(--concrete); font-size: 14px; }
+  .contacts dd { margin: 0; font-size: 18px; }
+  .msgs { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  footer {
+    background: #0A0B0C; color: #B4B8BD; font-size: 14px;
+    padding: 40px 0 calc(56px + 76px);
+    border-top: 3px solid var(--signal);
+  }
+  @media (min-width: 900px) { footer { padding-bottom: 56px; } }
+  footer a { color: var(--signal); }
+
+  /* Нижняя кнопка на телефоне */
+  .dock {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+    display: grid; grid-template-columns: 1fr auto; gap: 10px;
+    padding: 10px var(--gutter) calc(10px + env(safe-area-inset-bottom));
+    background: rgba(36, 39, 43, .94); backdrop-filter: blur(8px);
+    border-top: 1px solid var(--asphalt);
+  }
+  .dock .btn { padding: 16px; }
+  @media (min-width: 900px) { .dock { display: none; } }
+
+  .toast {
+    position: fixed; left: 50%; bottom: 96px; z-index: 30;
+    transform: translate(-50%, 20px); opacity: 0; pointer-events: none;
+    background: var(--chalk); color: var(--rubber); border-radius: var(--radius);
+    padding: 14px 18px; max-width: min(420px, calc(100vw - 32px)); font-size: 15px;
+    transition: opacity .25s, transform .25s;
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  [data-only="field"] { display: none; }
+  body.field [data-only="field"] { display: revert; }
+  body.field [data-only="shop"] { display: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wheel-roll { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="demo-bar">Демо-сайт: название, цены и сроки условные. Нравится? <a href="#" data-demo-contact>Напишите Михаилу из «Покажу»</a></div>
+
+<header class="wrap top">
+  <a class="logo" href="#">Протектор<span>шиномонтаж</span></a>
+  <a class="phone" href="#contacts">+7 900 000-00-00<small>ежедневно 8:00-21:00</small></a>
+</header>
+
+<main>
+  <section class="hero" aria-label="Главное">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="mode" role="group" aria-label="Формат">
+          <button type="button" data-mode="shop" aria-pressed="true">На сервисе</button>
+          <button type="button" data-mode="field" aria-pressed="false">Выезд к вам</button>
+        </div>
+        <h1 data-only="shop">Запишитесь без очереди</h1>
+        <h1 data-only="field">Приедем туда, где вы</h1>
+        <p class="lead" data-only="shop">Переобуем, отбалансируем и заклеим прокол. <strong>Посчитайте цену за 10 секунд</strong> и выберите свободное время.</p>
+        <p class="lead" data-only="field">Мастер с оборудованием приедет к дому, на работу или на трассу. <strong>Посчитайте цену</strong> и вызовите мастера.</p>
+        <a class="btn" href="#calc" data-only="shop">Записаться</a>
+        <a class="btn" href="#calc" data-only="field">Вызвать мастера</a>
+        <div class="hero-facts">
+          <div data-only="shop"><b>R13-R22</b>легковые и кроссоверы</div>
+          <div data-only="field"><b>R13-R22</b>прямо у вашей машины</div>
+          <div><b>Хранение</b>шин до следующего сезона</div>
+        </div>
+      </div>
+    </div>
+    <div class="wheel-stage" aria-hidden="true">
+      <div class="wheel-roll">
+        <svg class="wheel" id="wheel" viewBox="0 0 600 600">
+          <defs>
+            <path id="sidewall" d="M300,300 m-218,0 a218,218 0 1,1 436,0 a218,218 0 1,1 -436,0"/>
+            <radialGradient id="rim" cx="45%" cy="40%" r="65%">
+              <stop offset="0" stop-color="#D3D7DC"/>
+              <stop offset=".55" stop-color="#9AA0A7"/>
+              <stop offset="1" stop-color="#5E646B"/>
+            </radialGradient>
+          </defs>
+          <g id="tread"></g>
+          <circle cx="300" cy="300" r="268" fill="#1C1E21" stroke="#555B62" stroke-width="3"/>
+          <circle cx="300" cy="300" r="250" fill="none" stroke="#454A50" stroke-width="2"/>
+          <text font-family="Fira Sans Extra Condensed, Arial Narrow, sans-serif" font-weight="800" font-size="30" letter-spacing="3" fill="#A3A8AE">
+            <textPath href="#sidewall">ПРОТЕКТОР   205/55 R16 91V   ШИНОМОНТАЖ   TUBELESS   M+S   ПРОТЕКТОР   225/45 R17</textPath>
+          </text>
+          <circle cx="300" cy="300" r="190" fill="#141517"/>
+          <circle cx="300" cy="300" r="182" fill="url(#rim)"/>
+          <circle cx="300" cy="300" r="182" fill="none" stroke="#F5B800" stroke-width="4"/>
+          <g id="spokes" fill="#141517"></g>
+          <circle cx="300" cy="300" r="62" fill="#B9BEC4"/>
+          <circle cx="300" cy="300" r="40" fill="#F5B800"/>
+          <g id="nuts" fill="#17181A"></g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <div class="tread-strip" aria-hidden="true"></div>
+
+  <section id="calc">
+    <div class="wrap">
+      <h2>Сколько стоит</h2>
+      <p class="section-lead">Выберите размер колёс и что нужно сделать. Цена считается сразу, без звонков и «приезжайте, посмотрим».</p>
+      <div class="calc">
+        <form id="calc-form" onsubmit="return false">
+          <fieldset>
+            <legend>Радиус колеса</legend>
+            <div class="radii" id="radii"></div>
+          </fieldset>
+          <fieldset>
+            <legend>Машина</legend>
+            <div class="seg">
+              <label class="opt"><input type="radio" name="car" value="1" checked><span>Легковая</span></label>
+              <label class="opt"><input type="radio" name="car" value="1.2"><span>Кроссовер</span></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Что сделать</legend>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="job" value="full" checked><span>Сезонная замена шин на дисках: снять, перебортировать, отбалансировать, поставить <em>4 колеса</em></span></label>
+              <label class="opt"><input type="radio" name="job" value="swap"><span>Перестановка колёс в сборе <em>4 колеса</em></span></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Добавить</legend>
+            <div class="opts">
+              <label class="opt"><input type="checkbox" name="extra" value="storage" data-price="3000" data-label="Хранение шин"><span>Хранение шин до следующего сезона <em>+3 000 ₽</em></span></label>
+              <label class="opt"><input type="checkbox" name="extra" value="wash" data-price="400" data-label="Мойка колёс"><span>Мойка колёс <em>+400 ₽</em></span></label>
+              <label class="opt"><input type="checkbox" name="extra" value="patch" data-price="700" data-label="Ремонт прокола"><span>Ремонт прокола <em>+700 ₽</em></span></label>
+            </div>
+          </fieldset>
+        </form>
+        <aside class="total" aria-live="polite">
+          <p class="size" id="t-size">R16, легковая</p>
+          <div class="sum" id="t-sum">2 800 ₽</div>
+          <ul id="t-lines"></ul>
+          <button class="btn" type="button" data-book data-only="shop">Записаться с этим расчётом</button>
+          <button class="btn" type="button" data-book data-only="field">Вызвать мастера с этим расчётом</button>
+          <p class="note">Итоговую цену мастер подтвердит, когда увидит колёса. Без сюрпризов в чеке.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section id="prices">
+    <div class="wrap">
+      <h2>Услуги и цены</h2>
+      <p class="section-lead">Цены за одно колесо легкового автомобиля R13-R16. Для больших радиусов и кроссоверов посчитайте в калькуляторе.</p>
+      <div class="price-list">
+        <div class="price-row"><b>Шиномонтаж</b><span>снять, перебортировать, поставить</span><i>от 450 ₽</i></div>
+        <div class="price-row"><b>Балансировка</b><span>на стенде, грузики включены</span><i>от 250 ₽</i></div>
+        <div class="price-row"><b>Ремонт прокола</b><span>жгут или латка изнутри</span><i>от 700 ₽</i></div>
+        <div class="price-row"><b>Правка литого диска</b><span>после ямы или бордюра</span><i>от 1 500 ₽</i></div>
+        <div class="price-row"><b>Хранение шин</b><span>сезон, с мойкой и пакетами</span><i>3 000 ₽</i></div>
+        <div class="price-row" data-only="field"><b>Выезд мастера</b><span>по городу, добавляется к заказу</span><i>1 000 ₽</i></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="zone" data-only="field">
+    <div class="wrap zone">
+      <div>
+        <h2>Куда приезжаем</h2>
+        <p class="section-lead">Работаем по всему городу и пригороду. Нужно только место, где можно поставить машину на домкрат.</p>
+        <ul class="zone-list">
+          <li><span>В черте города</span><b>30-40 мин</b></li>
+          <li><span>Пригород до 15 км</span><b>около часа</b></li>
+          <li><span>Трасса, прокол в пути</span><b>по договорённости</b></li>
+        </ul>
+      </div>
+      <svg viewBox="0 0 400 400" aria-hidden="true">
+        <circle cx="200" cy="200" r="190" fill="none" stroke="#3B4046" stroke-width="2" stroke-dasharray="6 8"/>
+        <circle cx="200" cy="200" r="120" fill="#31353A"/>
+        <path d="M40 260 L150 210 L230 230 L360 150" fill="none" stroke="#24272B" stroke-width="10" stroke-linecap="round"/>
+        <path d="M120 40 L170 180 L160 360" fill="none" stroke="#24272B" stroke-width="10" stroke-linecap="round"/>
+        <circle cx="200" cy="200" r="16" fill="#F5B800"/>
+        <circle cx="200" cy="200" r="34" fill="none" stroke="#F5B800" stroke-width="2" opacity=".5"/>
+        <text x="200" y="104" text-anchor="middle" fill="#9A9EA4" font-family="Golos Text, sans-serif" font-size="14">город</text>
+        <text x="200" y="28" text-anchor="middle" fill="#9A9EA4" font-family="Golos Text, sans-serif" font-size="14">до 15 км</text>
+      </svg>
+    </div>
+  </section>
+
+  <section class="season" id="season">
+    <div class="wrap">
+      <h2>Сезон близко</h2>
+      <p class="section-lead">В первый снег очередь растягивается на часы. Выберите окно заранее, и мы вас ждём.</p>
+      <div class="slots" id="slots"></div>
+      <div class="slot-cta">
+        <button class="btn" type="button" id="slot-btn" disabled>Выберите время</button>
+        <p id="slot-note">Свободные окна на ближайшие дни</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacts">
+    <div class="wrap two">
+      <div>
+        <h2>Отзывы</h2>
+        <p class="section-lead">Все отзывы клиентов собраны в нашей карточке на Яндекс Картах. Там же фото и ответы на вопросы.</p>
+        <a class="btn ghost" href="#" data-demo-link>Читать отзывы на Яндекс Картах</a>
+      </div>
+      <div class="contacts">
+        <h2>Как нас найти</h2>
+        <dl>
+          <div data-only="shop"><dt>Адрес</dt><dd>ул. Заводская, 12, въезд со двора</dd></div>
+          <div data-only="field"><dt>Где работаем</dt><dd>Весь город и пригород до 15 км</dd></div>
+          <div><dt>Часы работы</dt><dd>Ежедневно 8:00-21:00, в сезон до 23:00</dd></div>
+          <div><dt>Телефон</dt><dd>+7 900 000-00-00</dd></div>
+        </dl>
+        <div class="msgs">
+          <a class="btn" href="#" data-demo-link>Telegram</a>
+          <a class="btn ghost" href="#" data-demo-link>MAX</a>
+          <a class="btn ghost" href="#" data-demo-link>WhatsApp</a>
+          <a class="btn ghost" href="#" data-demo-link>ВКонтакте</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Это демо сделано студией «Покажу». Такой же сайт может быть у вашего шиномонтажа. <a href="#" data-demo-contact>Написать Михаилу</a></div>
+</footer>
+
+<div class="dock">
+  <a class="btn" href="#calc" data-only="shop">Посчитать и записаться</a>
+  <a class="btn" href="#calc" data-only="field">Посчитать и вызвать</a>
+  <a class="btn ghost" href="#contacts" aria-label="Контакты">Позвонить</a>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(() => {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const NS = "http://www.w3.org/2000/svg";
+  const fmt = n => n.toLocaleString("ru-RU").replace(/ /g, " ") + " ₽";
+
+  /* Колесо: протектор, спицы, гайки */
+  const tread = $("#tread"), spokes = $("#spokes"), nuts = $("#nuts");
+  for (let i = 0; i < 48; i++) {
+    const r = document.createElementNS(NS, "rect");
+    r.setAttribute("x", 290); r.setAttribute("y", 18); r.setAttribute("width", 20); r.setAttribute("height", 26);
+    r.setAttribute("rx", 3); r.setAttribute("fill", "#2A2D31"); r.setAttribute("stroke", "#5A6067"); r.setAttribute("stroke-width", "2");
+    r.setAttribute("transform", `rotate(${i * 7.5 + (i % 2 ? 2 : 0)} 300 300)`);
+    tread.appendChild(r);
+  }
+  for (let i = 0; i < 5; i++) {
+    const p = document.createElementNS(NS, "path");
+    p.setAttribute("d", "M282 238 L262 140 Q300 128 338 140 L318 238 Z");
+    p.setAttribute("transform", `rotate(${i * 72} 300 300)`);
+    spokes.appendChild(p);
+    const c = document.createElementNS(NS, "circle");
+    const a = (i * 72 - 90) * Math.PI / 180;
+    c.setAttribute("cx", 300 + Math.cos(a) * 22); c.setAttribute("cy", 300 + Math.sin(a) * 22); c.setAttribute("r", 6);
+    nuts.appendChild(c);
+  }
+  const wheel = $("#wheel");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* Колесо сбоку: катится вниз по правому краю вдоль всей страницы */
+  const rider = document.createElement("div");
+  rider.className = "rider"; rider.setAttribute("aria-hidden", "true");
+  const riderWheel = wheel.cloneNode(true);
+  riderWheel.removeAttribute("id");
+  riderWheel.querySelectorAll("[id]").forEach(el => el.removeAttribute("id"));
+  rider.appendChild(riderWheel);
+  document.body.appendChild(rider);
+
+  function place() {
+    const size = rider.offsetWidth;
+    const dock = innerWidth < 900 ? 84 : 24;
+    const top = 70, travel = Math.max(0, innerHeight - size - top - dock);
+    const max = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+    const p = reduce ? 0.5 : Math.min(1, scrollY / max);
+    const y = top + p * travel;
+    rider.style.transform = `translateY(${y}px)`;
+    if (!reduce) {
+      /* поворот по пройденному пути: колесо катится, а не скользит */
+      riderWheel.style.transform = `rotate(${-(scrollY * 0.6 + y) / (Math.PI * size) * 360}deg)`;
+      wheel.style.transform = `rotate(${scrollY * 0.35}deg)`;
+    }
+  }
+  let ticking = false;
+  addEventListener("scroll", () => {
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(() => { place(); ticking = false; });
+  }, { passive: true });
+  addEventListener("resize", place);
+  place();
+
+  /* Появляется, когда большое колесо первого экрана ушло из вида */
+  new IntersectionObserver(([e]) => rider.classList.toggle("on", !e.isIntersecting), { threshold: 0.15 })
+    .observe($(".wheel-stage"));
+
+  /* Режим: на сервисе / выезд */
+  let mode = "shop";
+  $$(".mode button").forEach(b => b.addEventListener("click", () => {
+    mode = b.dataset.mode;
+    document.body.classList.toggle("field", mode === "field");
+    $$(".mode button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    calc();
+  }));
+
+  /* Калькулятор */
+  const prices = { 13: 2000, 14: 2200, 15: 2400, 16: 2800, 17: 3200, 18: 3600, 19: 4000, 20: 4600, 21: 5200, 22: 5800 };
+  const radii = $("#radii");
+  Object.keys(prices).forEach(r => {
+    radii.insertAdjacentHTML("beforeend",
+      `<label class="chip"><input type="radio" name="r" value="${r}" ${r === "16" ? "checked" : ""}><span>R${r}</span></label>`);
+  });
+  const form = $("#calc-form");
+  let summary = "";
+  function calc() {
+    const r = form.r.value, car = parseFloat(form.car.value), job = form.job.value;
+    const carName = car > 1 ? "кроссовер" : "легковая";
+    let base = Math.round(prices[r] * car / 50) * 50;
+    if (job === "swap") base = Math.round(base * 0.45 / 50) * 50;
+    const lines = [[job === "full" ? "Сезонная замена, 4 колеса" : "Перестановка, 4 колеса", base]];
+    $$('input[name="extra"]:checked', form).forEach(x => lines.push([x.dataset.label, +x.dataset.price]));
+    if (mode === "field") lines.push(["Выезд мастера", 1000]);
+    const total = lines.reduce((s, l) => s + l[1], 0);
+    $("#t-size").textContent = `R${r}, ${carName}`;
+    $("#t-sum").textContent = fmt(total);
+    $("#t-lines").innerHTML = lines.map(([n, p]) => `<li><span>${n}</span><span>${fmt(p)}</span></li>`).join("");
+    summary = `R${r}, ${carName}: ${lines.map(l => l[0]).join(", ")}. Итого ${fmt(total)}`;
+  }
+  form.addEventListener("change", calc);
+  calc();
+
+  /* Свободные окна на ближайшие дни */
+  const slotsEl = $("#slots");
+  const days = ["вс", "пн", "вт", "ср", "чт", "пт", "сб"];
+  const months = ["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"];
+  const times = ["9:00", "10:30", "12:00", "14:00", "15:30", "17:00", "18:30", "20:00"];
+  const today = new Date();
+  for (let d = 0; d < 5; d++) {
+    const dt = new Date(today); dt.setDate(today.getDate() + d + 1);
+    const title = d === 0 ? "Завтра" : `${dt.getDate()} ${months[dt.getMonth()]}`;
+    const btns = times.map((t, i) => {
+      const busy = (i * 3 + d * 5 + dt.getDate()) % 4 === 0;
+      return `<button type="button" aria-pressed="false" data-slot="${title}, ${t}" ${busy ? "disabled" : ""}>${t}</button>`;
+    }).join("");
+    slotsEl.insertAdjacentHTML("beforeend",
+      `<div class="day"><h3>${title}<small>${days[dt.getDay()]}</small></h3><div class="times">${btns}</div></div>`);
+  }
+  let slot = "";
+  const slotBtn = $("#slot-btn");
+  slotsEl.addEventListener("click", e => {
+    const b = e.target.closest("button[data-slot]"); if (!b) return;
+    $$("button[data-slot]", slotsEl).forEach(x => x.setAttribute("aria-pressed", x === b));
+    slot = b.dataset.slot;
+    slotBtn.disabled = false;
+    slotBtn.textContent = `Записаться: ${slot}`;
+    $("#slot-note").textContent = "Окно держим 15 минут";
+  });
+
+  /* В демо заявки никуда не уходят */
+  const toast = $("#toast"); let tt;
+  function say(msg) {
+    toast.textContent = msg; toast.classList.add("show");
+    clearTimeout(tt); tt = setTimeout(() => toast.classList.remove("show"), 4200);
+  }
+  $$("[data-book]").forEach(b => b.addEventListener("click", () =>
+    say(`Демо: заявка «${summary}» на настоящем сайте сразу придёт владельцу в Telegram, MAX или WhatsApp.`)));
+  slotBtn.addEventListener("click", () =>
+    say(`Демо: запись на ${slot} на настоящем сайте попадёт в журнал записи шиномонтажа.`));
+  $$("[data-demo-link]").forEach(a => a.addEventListener("click", e => {
+    e.preventDefault(); say("Демо: на настоящем сайте здесь будет ссылка владельца.");
+  }));
+  $$("[data-demo-contact]").forEach(a => a.addEventListener("click", e => {
+    e.preventDefault(); say("Здесь будет ссылка на Telegram Михаила и сайт покажусайт.рф.");
+  }));
+})();
+</script>
+</body>
+</html>
