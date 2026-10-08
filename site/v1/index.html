@@ -298,10 +298,8 @@
   .about { display: grid; gap: 28px; }
   .photo-wrap { position: relative; width: 220px; }
   .photo {
-    width: 220px; aspect-ratio: 4 / 5; border-radius: 24px;
-    background: var(--glass); border: 2px dashed var(--before);
-    display: grid; place-items: center; text-align: center; padding: 20px;
-    color: var(--muted); font-size: 14px;
+    display: block; width: 220px; height: auto; aspect-ratio: 4 / 5; border-radius: 24px;
+    object-fit: cover; background: var(--glass);
   }
   .photo-wrap .note { position: absolute; right: -96px; top: 40px; display: flex; flex-direction: column; align-items: flex-start; }
   .photo-wrap .note svg { width: 56px; height: 34px; margin: 2px 0 0 -30px; }
@@ -388,7 +386,7 @@
 <header class="top">
   <div class="wrap">
     <a class="logo" href="#" aria-label="Покажу, на главную"><span class="was">пока</span><span class="cut" aria-hidden="true"></span><span>жу</span></a>
-    <a class="btn btn-quiet" href="#todo-telegram">Telegram</a>
+    <a class="btn btn-quiet" href="https://t.me/MikhailUzk" target="_blank" rel="noopener">Telegram</a>
   </div>
 </header>
 
@@ -398,7 +396,7 @@
     <div class="wrap">
       <div class="hero-text">
         <h1 id="hero-title">Ваш бизнес уже может выглядеть так</h1>
-        <p class="lead">Выберите свою сферу и посмотрите демо. Сначала вы видите готовый сайт своего бизнеса - платите, только если понравится.</p>
+        <p class="lead">Выберите сферу и посмотрите пример. Демо вашего бизнеса сделаю за 1-2 дня бесплатно. Платите, только если понравится.</p>
         <ul class="niches" aria-label="Сфера бизнеса">
           <li><button class="niche" type="button" data-niche="tire" aria-pressed="true">Шиномонтаж</button></li>
           <li><button class="niche" type="button" data-niche="barber" aria-pressed="false">Барбершоп</button></li>
@@ -439,7 +437,7 @@
       </div>
 
       <div class="hero-actions">
-        <a class="btn btn-main" href="#todo-telegram">Написать в Telegram</a>
+        <a class="btn btn-main" href="https://t.me/MikhailUzk" target="_blank" rel="noopener">Попросить демо в Telegram</a>
         <a class="more" href="#kak">Как это работает</a>
       </div>
     </div>
@@ -450,14 +448,14 @@
     <div class="wrap">
       <div class="section-head">
         <h2 id="demo-title">Демо по сферам</h2>
-        <p class="lead">У каждой сферы свой характер, поэтому и сайты разные. Откройте демо на весь экран и примерьте на свой бизнес.</p>
+        <p class="lead">У каждой сферы свой характер, поэтому и сайты разные. Откройте демо и попробуйте как ваш клиент: посчитайте цену, соберите букет, запишитесь.</p>
       </div>
       <ul class="showcase">
         <li class="show-item">
           <div class="mini" aria-hidden="true"><div class="mini-inner" data-mock="tire"></div></div>
           <div class="show-body">
             <h3>Шиномонтаж</h3>
-            <p>Точка в городе и выездной мастер. Запись без очереди.</p>
+            <p>Цена за 10 секунд по размеру колёс. Точка в городе или выезд мастера.</p>
             <a class="btn btn-main" href="../../demos/shinomontazh/index.html">Открыть демо</a>
           </div>
         </li>
@@ -465,7 +463,7 @@
           <div class="mini" aria-hidden="true"><div class="mini-inner" data-mock="barber"></div></div>
           <div class="show-body">
             <h3>Барбершоп</h3>
-            <p>Мастера, услуги и запись в один клик.</p>
+            <p>Потяните лезвие: было - стало. Выбор стрижки и запись к мастеру.</p>
             <a class="btn btn-main" href="../../demos/barbershop/index.html">Открыть демо</a>
           </div>
         </li>
@@ -473,7 +471,7 @@
           <div class="mini" aria-hidden="true"><div class="mini-inner" data-mock="flowers"></div></div>
           <div class="show-body">
             <h3>Цветы</h3>
-            <p>Витрина букетов и заказ в мессенджер.</p>
+            <p>Три вопроса - и букет собирается на глазах. Заказ в мессенджер.</p>
             <a class="btn btn-main" href="../../demos/flowers/index.html">Открыть демо</a>
           </div>
         </li>
@@ -481,7 +479,7 @@
           <div class="mini" aria-hidden="true"><div class="mini-inner" data-mock="salon"></div></div>
           <div class="show-body">
             <h3>Салон красоты</h3>
-            <p>Волосы, ногти, лицо: услуги и запись.</p>
+            <p>Соберите визит из нескольких услуг: время и сумма видны сразу.</p>
             <a class="btn btn-main" href="../../demos/salon/index.html">Открыть демо</a>
           </div>
         </li>
@@ -497,10 +495,10 @@
         <p class="promise">Сначала вы видите готовый сайт своего бизнеса. Платите, только если понравилось.</p>
       </div>
       <ol class="steps">
-        <li class="step"><div><h3>Делаю демо вашего бизнеса</h3><p>Вам ничего не нужно готовить.</p></div></li>
-        <li class="step"><div><h3>Вы смотрите</h3><p>Открываете ссылку с телефона, как ваши клиенты.</p></div></li>
-        <li class="step"><div><h3>Понравилось - запускаю</h3><p>Домен, хостинг и публикация на мне.</p></div></li>
-        <li class="step"><div><h3>Поддержка</h3><p>После запуска сайт не остаётся без присмотра.</p></div></li>
+        <li class="step"><div><h3>Делаю демо вашего бизнеса</h3><p>За 1-2 дня. От вас ничего не нужно.</p></div></li>
+        <li class="step"><div><h3>Вы смотрите</h3><p>Открываете ссылку с телефона, как ваши клиенты. Не понравилось - ничего не платите.</p></div></li>
+        <li class="step"><div><h3>Понравилось - запускаю</h3><p>Присылаете цены, график и фото в мессенджер, как удобно: фото прайса, голосовое, текст. Через 2-3 дня сайт работает на своём адресе.</p></div></li>
+        <li class="step"><div><h3>Поддержка</h3><p>Первые 2-3 месяца бесплатно. Меняю цены, фото и график по вашей просьбе и слежу, чтобы сайт работал.</p></div></li>
       </ol>
     </div>
   </section>
@@ -513,11 +511,12 @@
         <p class="lead">Вам не нужно ни в чём разбираться.</p>
       </div>
       <ul class="included">
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><div><h3>Сайт или лендинг</h3><p>Под вашу сферу и ваш бизнес.</p></div></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><div><h3>Домен, хостинг, публикация</h3><p>Сайт открывается по своему адресу.</p></div></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><div><h3>Кнопки связи</h3><p>Telegram, MAX, WhatsApp, ВКонтакте и другие.</p></div></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><div><h3>Яндекс Карты и Яндекс Бизнес</h3><p>Сайт связан с вашей карточкой организации.</p></div></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><div><h3>Поддержка после запуска</h3><p>По абонентской плате.</p></div></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><div><h3>Сайт под ваш бизнес</h3><p>Ваши услуги, цены и фото. Удобно открывается с телефона.</p></div></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><div><h3>Свой адрес в интернете</h3><p>Домен, хостинг и публикация на мне.</p></div></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><div><h3>Кнопки связи</h3><p>Telegram, MAX, WhatsApp, ВКонтакте и звонок в одно касание.</p></div></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><div><h3>Яндекс Карты</h3><p>Карта с проездом и ссылка на ваши отзывы. Пришлю короткую инструкцию, как добавить ссылку на сайт в карточку организации.</p></div></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><div><h3>Онлайн-запись</h3><p>Уже записываете клиентов через YCLIENTS или Яндекс Карты? Кнопка «Записаться» на сайте поведёт туда.</p></div></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><div><h3>Поддержка</h3><p>Продление домена и хостинга, до 3 мелких правок в месяц: цены, фото, график, акции.</p></div></li>
       </ul>
     </div>
   </section>
@@ -533,25 +532,26 @@
         <div class="alt">
           <h3>Сайт от Яндекс Бизнеса</h3>
           <ul>
-            <li>Бесплатный, создаётся сам</li>
+            <li>Бесплатный, создаётся сам из карточки</li>
+            <li>Адрес вида название.clients.site</li>
             <li>Оформление: две темы и цвет кнопок</li>
-            <li>Свою иконку сайта не поставить, прайс файлом не загрузить</li>
             <li>Свой домен - в платной подписке</li>
           </ul>
         </div>
         <div class="alt">
           <h3>Taplink</h3>
           <ul>
-            <li>Базовый тариф бесплатный</li>
-            <li>Свой домен и страница без логотипа Taplink - только в тарифе BUSINESS, 725 ₽ в месяц</li>
+            <li>Базовый тариф бесплатный, но на странице логотип Taplink</li>
+            <li>Свой домен и страница без логотипа - тариф BUSINESS, 725 ₽ в месяц</li>
           </ul>
         </div>
         <div class="alt alt-ours">
           <h3>Сайт от «Покажу»</h3>
           <ul>
-            <li>Дизайн под ваш бизнес</li>
-            <li>Свой домен входит</li>
-            <li>Кнопки связи и Яндекс Карты</li>
+            <li>Дизайн под вашу сферу</li>
+            <li>Свой домен входит в цену</li>
+            <li>Кнопки связи, карта и отзывы с Яндекс Карт</li>
+            <li>Ваша онлайн-запись остаётся и подключается к сайту</li>
             <li>Сначала смотрите, потом платите</li>
           </ul>
         </div>
@@ -567,13 +567,14 @@
         <h2 id="price-title">Цена для первых клиентов</h2>
       </div>
       <div class="price-box">
-        <p class="price-main">10-12 тыс. ₽<small>сайт под ключ, оплата только если понравился</small></p>
+        <p class="price-main">13-15 тыс. ₽<small>сайт под ключ, платите только если понравился</small></p>
         <ul class="price-list">
-          <li>Первые 2-3 месяца поддержки бесплатно</li>
-          <li>Дальше поддержка 1,5-2 тыс. ₽ в месяц</li>
           <li>Домен, хостинг и публикация включены</li>
+          <li>Первые 2-3 месяца поддержки бесплатно</li>
+          <li>Дальше 2-3 тыс. ₽ в месяц: домен, хостинг, до 3 мелких правок</li>
+          <li>Крупные изменения, например новый раздел, оцениваю отдельно</li>
         </ul>
-        <p class="price-cond">Условие: разрешите показать ваш сайт как пример работы и оставьте отзыв.</p>
+        <p class="price-cond">Условие: разрешите показать ваш сайт как пример работы и оставьте отзыв.<br>Такая цена - для первых пяти клиентов: собираю первые примеры работ.</p>
       </div>
     </div>
   </section>
@@ -582,7 +583,7 @@
   <section class="section" aria-labelledby="about-title">
     <div class="wrap about">
       <div class="photo-wrap">
-        <div class="photo">Здесь будет фото Михаила</div>
+        <img class="photo" src="img/mikhail.jpg" alt="Михаил Узких" width="660" height="825" loading="lazy">
         <p class="note" aria-hidden="true">это я
           <svg viewBox="0 0 56 34" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M52 4C40 6 22 14 8 28"/><path d="M8 18l0 10 10-1"/></svg>
         </p>
@@ -590,9 +591,10 @@
       <div class="about-text">
         <h2 id="about-title">Кто за «Покажу»</h2>
         <p class="name">Михаил Узких</p>
-        <p>Делаю сайты для местного бизнеса: шиномонтажей, барбершопов, цветочных магазинов, салонов красоты. Работаю по всей России, удалённо, всё обсуждаем в мессенджере.</p>
-        <p>Сейчас набираю первых клиентов, поэтому для них особые условия.</p>
-        <p class="lead">Индивидуальный предприниматель.</p>
+        <p>Делаю сайты для различных категорий бизнеса РФ: юридические услуги, агентства недвижимости, стоматологии, шиномонтаж, барбершоп, цветочные магазины, салоны красоты и прочее. Работаю по всей России удалённо, всё обсуждаем в мессенджере.</p>
+        <p>Последние 2,5 года - служба по контракту. До этого времени работал главным механиком на специализированном предприятии, а чуть ранее руководителем сервисного центра по ремонту коммерческого транспорта. Знаю сервисный бизнес изнутри: клиенты, сроки, ответственность.</p>
+        <p>В работе для меня главный критерий - порядочность, честность и пунктуальность. Сейчас набираю первых клиентов.</p>
+        <p class="lead">Индивидуальный предприниматель, Дегтярск, Свердловская область.</p>
       </div>
     </div>
   </section>
@@ -609,8 +611,24 @@
           <p>Тогда вы ничего не платите. Сначала вы видите готовый сайт своего бизнеса и только потом решаете.</p>
         </details>
         <details>
+          <summary>Сколько ждать?</summary>
+          <p>Демо - 1-2 дня. После вашего «да» сайт заработает через 2-3 дня.</p>
+        </details>
+        <details>
+          <summary>Что от меня нужно?</summary>
+          <p>Для демо - ничего. Для запуска - услуги и цены, график и адрес, куда писать клиентам и фото работ, если есть. Присылаете в мессенджер, как удобно: фото прайса, голосовое, текст.</p>
+        </details>
+        <details>
           <summary>Мне нужно разбираться в сайтах?</summary>
           <p>Нет. Домен, хостинг, публикацию, кнопки связи и связку с Яндекс Картами я беру на себя.</p>
+        </details>
+        <details>
+          <summary>Сколько стоит поддержка?</summary>
+          <p>Для первых клиентов первые 2-3 месяца бесплатно, дальше 2-3 тыс. ₽ в месяц. Входят продление домена и хостинга и до 3 мелких правок в месяц.</p>
+        </details>
+        <details>
+          <summary>Что будет, если перестану платить?</summary>
+          <p>Сайт работает до конца оплаченного срока. Потом передаю вам файлы сайта и доступы, продлеваете сами или с другим исполнителем.</p>
         </details>
         <details>
           <summary>Вы в моём городе?</summary>
@@ -620,10 +638,6 @@
           <summary>У меня уже есть страница в Яндекс Бизнесе или Taplink</summary>
           <p>Покажу её рядом с демо вашего сайта, и вы сами сравните.</p>
         </details>
-        <details>
-          <summary>Сколько стоит поддержка?</summary>
-          <p>Для первых клиентов первые 2-3 месяца бесплатно, дальше 1,5-2 тыс. ₽ в месяц.</p>
-        </details>
       </div>
     </div>
   </section>
@@ -632,12 +646,12 @@
   <section class="final" id="kontakty" aria-labelledby="final-title">
     <div class="wrap">
       <h2 id="final-title">Покажу, как может выглядеть ваш сайт</h2>
-      <p class="lead">Напишите, чем занимается ваш бизнес. Удобнее всего в Telegram.</p>
+      <p class="lead">Напишите название и город вашего бизнеса - через 1-2 дня пришлю демо. Удобнее всего в Telegram.</p>
       <div class="messengers">
-        <a class="btn btn-main" href="#todo-telegram">Написать в Telegram</a>
-        <a class="btn btn-quiet" href="#todo-max">MAX</a>
-        <a class="btn btn-quiet" href="#todo-whatsapp">WhatsApp</a>
-        <a class="btn btn-quiet" href="#todo-vk">ВКонтакте</a>
+        <a class="btn btn-main" href="https://t.me/MikhailUzk" target="_blank" rel="noopener">Попросить демо в Telegram</a>
+        <a class="btn btn-quiet" href="https://max.ru/u/f9LHodD0cOICuFpo22USjwl0HflwduwiV7L_k4jb-zB7pnNJGzf7OIzRtjY" target="_blank" rel="noopener">MAX</a>
+        <a class="btn btn-quiet" href="https://vk.ru/muzkikh" target="_blank" rel="noopener">ВКонтакте</a>
+        <a class="btn btn-quiet" href="https://wa.me/79826312192" target="_blank" rel="noopener">WhatsApp</a>
       </div>
     </div>
   </section>
@@ -647,7 +661,7 @@
   <div class="wrap">
     <a class="logo" href="#" aria-label="Покажу, наверх"><span class="was">пока</span><span class="cut" aria-hidden="true"></span><span>жу</span></a>
     <span>покажусайт.рф</span>
-    <span>ИП Узких М.Ю.  ИНН 665893998871, 2026</span>
+    <span>ИП Узких М.Ю., ИНН 665893998871, 2026</span>
   </div>
 </footer>
 
