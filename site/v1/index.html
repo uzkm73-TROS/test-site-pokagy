@@ -16,8 +16,8 @@
     --graphite: #1D2329;
     --muted: #5B6570;
     --before: #9AA3AD;
-    --accent: #00A88F;
-    --accent-ink: #00806D;
+    --accent: #3CC6C2;
+    --accent-ink: #00807E;
     --pen: #2340C8;
     --line: #DCE2E7;
 
@@ -63,7 +63,7 @@
     font: 600 17px/1 var(--text); text-decoration: none; cursor: pointer;
   }
   .btn-main { background: var(--accent); color: var(--graphite); }
-  .btn-main:hover { background: #009C85; }
+  .btn-main:hover { background: #33B8B4; }
   .btn-quiet { background: var(--glass); color: var(--graphite); }
   .btn-quiet:hover { background: #E2E8ED; }
   .btn svg { width: 20px; height: 20px; }
@@ -71,19 +71,19 @@
   /* Свечение и волна на кнопках */
   .btn, .niche {
     position: relative; overflow: hidden; isolation: isolate;
-    --ripple: rgba(0, 168, 143, .42);
+    --ripple: rgba(60, 198, 194, .42);
     transition: box-shadow .25s ease, background-color .2s ease, border-color .2s ease;
   }
   .btn-main { --ripple: rgba(255, 255, 255, .7); animation: glow 2.4s ease-in-out infinite; }
   @keyframes glow {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(0, 168, 143, 0), 0 8px 26px -6px rgba(0, 168, 143, .65); }
-    50% { box-shadow: 0 0 0 9px rgba(0, 168, 143, .22), 0 10px 40px -4px rgba(0, 168, 143, .9); }
+    0%, 100% { box-shadow: 0 0 0 0 rgba(60, 198, 194, 0), 0 8px 26px -6px rgba(60, 198, 194, .65); }
+    50% { box-shadow: 0 0 0 9px rgba(60, 198, 194, .22), 0 10px 40px -4px rgba(60, 198, 194, .9); }
   }
   .btn-main:hover, .btn-main:focus-visible {
     animation: none;
-    box-shadow: 0 0 0 11px rgba(0, 168, 143, .26), 0 12px 48px -4px rgba(0, 168, 143, .95);
+    box-shadow: 0 0 0 11px rgba(60, 198, 194, .26), 0 12px 48px -4px rgba(60, 198, 194, .95);
   }
-  .btn-quiet:hover, .niche:hover { box-shadow: 0 0 0 5px rgba(0, 168, 143, .2), 0 0 28px rgba(0, 168, 143, .4); }
+  .btn-quiet:hover, .niche:hover { box-shadow: 0 0 0 5px rgba(60, 198, 194, .2), 0 0 28px rgba(60, 198, 194, .4); }
   .niche[aria-pressed="true"] { --ripple: rgba(255, 255, 255, .5); }
   .ripple {
     position: absolute; z-index: -1; border-radius: 50%;
@@ -378,7 +378,7 @@
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .mock, .mock.is-on, .faq summary::after { transition: none; }
-    .btn-main { animation: none; box-shadow: 0 6px 22px -8px rgba(0, 168, 143, .55); }
+    .btn-main { animation: none; box-shadow: 0 6px 22px -8px rgba(60, 198, 194, .55); }
     .ripple { display: none; }
   }
 </style>
@@ -466,7 +466,7 @@
           <div class="show-body">
             <h3>Барбершоп</h3>
             <p>Мастера, услуги и запись в один клик.</p>
-            <span class="status">Демо готовлю</span>
+            <a class="btn btn-main" href="../../demos/barbershop/index.html">Открыть демо</a>
           </div>
         </li>
         <li class="show-item">
@@ -474,7 +474,7 @@
           <div class="show-body">
             <h3>Цветы</h3>
             <p>Витрина букетов и заказ в мессенджер.</p>
-            <span class="status">Демо готовлю</span>
+            <a class="btn btn-main" href="../../demos/flowers/index.html">Открыть демо</a>
           </div>
         </li>
         <li class="show-item">
@@ -482,7 +482,7 @@
           <div class="show-body">
             <h3>Салон красоты</h3>
             <p>Волосы, ногти, лицо: услуги и запись.</p>
-            <span class="status">Демо готовлю</span>
+            <a class="btn btn-main" href="../../demos/salon/index.html">Открыть демо</a>
           </div>
         </li>
       </ul>
@@ -688,7 +688,7 @@
 <template id="mock-salon">
   <div class="m m-salon">
     <div class="m-name">БЕЛЫЙ</div>
-    <div class="m-h">Выйдете от нас другим человеком</div>
+    <div class="m-h">Уйдёте от нас другим человеком</div>
     <div class="tabs"><span class="on">Волосы</span><span>Ногти</span><span>Лицо</span></div>
     <div class="m-btn">Записаться</div>
     <div class="tiles"><i></i><i></i><i></i><i></i></div>

@@ -1,0 +1,703 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Цветы «Пионовый сад»</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Commissioner:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --powder: #FBF3F1;
+    --petal: #F3DEDB;
+    --blush: #E7B7B4;
+    --blush-d: #DCA29F;
+    --plum: #4A2F36;
+    --plum-2: #6E4D53;
+    --mauve: #84666C;
+    --euc: #8FA89B;
+    --euc-d: #5F7A6D;
+    --paper: #FFFBFA;
+    --rule: rgba(74, 47, 54, .14);
+    --display: "Cormorant Garamond", Georgia, serif;
+    --text: "Commissioner", system-ui, sans-serif;
+    --gutter: 16px;
+  }
+  @media (min-width: 720px) { :root { --gutter: 40px; } }
+
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--powder);
+    color: var(--plum);
+    font: 400 17px/1.6 var(--text);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; }
+  button { font: inherit; color: inherit; }
+  :focus-visible { outline: 2px solid var(--plum); outline-offset: 3px; }
+  h1, h2, h3 { font-family: var(--display); font-weight: 500; margin: 0; }
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 var(--gutter); }
+
+  /* Плашка демо */
+  .demo-bar {
+    background: var(--plum); color: #E9D3D1;
+    font-size: 13px; padding: 8px var(--gutter); text-align: center;
+  }
+  .demo-bar a { color: #fff; }
+
+  /* Шапка */
+  .top { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; padding-bottom: 4px; }
+  .logo { text-decoration: none; display: grid; gap: 2px; }
+  .logo b { font: italic 500 26px/1 var(--display); }
+  .logo span { font-size: 12px; color: var(--mauve); }
+  .phone { font-weight: 500; font-size: 15px; text-decoration: none; white-space: nowrap; text-align: right; }
+  .phone small { display: block; font-weight: 400; font-size: 12px; color: var(--mauve); }
+
+  /* Кнопки */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    background: var(--blush); color: var(--plum); font: 500 16px/1 var(--text);
+    text-decoration: none; border: 0; border-radius: 999px; padding: 17px 26px; cursor: pointer;
+    transition: background .15s, transform .15s;
+  }
+  .btn:hover { background: var(--blush-d); }
+  .btn:active { transform: translateY(1px); }
+  .btn.ghost { background: transparent; box-shadow: inset 0 0 0 1px rgba(74, 47, 54, .3); }
+  .btn.ghost:hover { background: var(--petal); }
+  .btn.sm { padding: 11px 16px; font-size: 15px; }
+  .btn[disabled] { opacity: .45; cursor: default; }
+
+  /* Первый экран */
+  .hero { padding: 10px 0 52px; }
+  .hero-grid { display: grid; grid-template-areas: "title" "stage" "quiz"; }
+  .hero-title { grid-area: title; }
+  .hero h1 { font-size: clamp(34px, 9.4vw, 82px); line-height: 1.02; letter-spacing: -.012em; margin: 12px 0 8px; max-width: 14ch; }
+  .hero .lead { color: var(--mauve); margin: 0; max-width: 34ch; font-size: 16px; }
+
+  .stage-wrap { grid-area: stage; margin: 6px 0 0; }
+  .stage { position: relative; width: min(100%, 250px); margin: 0 auto; aspect-ratio: 360 / 384; }
+  .stage::before {
+    content: ""; position: absolute; left: 10%; right: 10%; top: 2%; bottom: 3%;
+    background: var(--petal); border-radius: 999px 999px 0 0;
+  }
+  .stage::after { content: ""; position: absolute; left: 0; right: 0; bottom: 3%; height: 1px; background: var(--rule); }
+  .stage svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; overflow: visible; }
+
+  .quiz { grid-area: quiz; margin-top: 16px; }
+  .progress { display: flex; gap: 6px; margin-bottom: 12px; }
+  .progress i { flex: 1; height: 3px; border-radius: 2px; background: var(--petal); transition: background .3s; }
+  .progress i.on { background: var(--plum); }
+  .q-head { display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; color: var(--mauve); min-height: 22px; }
+  .linkish { border: 0; background: none; padding: 0; color: var(--plum-2); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; font-size: 14px; }
+  .q-title { font: 600 clamp(28px, 7.4vw, 38px)/1.1 var(--display); margin: 2px 0 14px; }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opts button {
+    flex: 1 1 40%; border: 0; border-radius: 999px; padding: 14px 12px; cursor: pointer;
+    background: var(--petal); color: var(--plum-2); font-weight: 500; font-size: 16px;
+    transition: background .2s, color .2s;
+  }
+  .opts button:hover { background: #ECCFCB; }
+  .opts button[aria-pressed="true"] { background: var(--plum); color: var(--powder); }
+  .swap { animation: swap .35s ease both; }
+  @keyframes swap { from { opacity: 0; transform: translateX(14px); } }
+  .more { display: inline-block; margin-top: 16px; font-size: 15px; color: var(--plum-2); text-underline-offset: 3px; }
+
+  .r-sub { margin: -6px 0 10px; color: var(--mauve); font-size: 15px; }
+  .res { list-style: none; margin: 0; padding: 0; }
+  .res li { display: grid; grid-template-columns: 60px 1fr auto; gap: 14px; align-items: center; padding: 13px 0; border-top: 1px solid var(--rule); }
+  .res li:last-child { border-bottom: 1px solid var(--rule); }
+  .r-pic { width: 60px; height: 75px; object-fit: cover; display: block; border-radius: 30px 30px 4px 4px; background: var(--petal); }
+  .res b { display: block; font: italic 500 25px/1.1 var(--display); }
+  .res span { display: block; font-size: 14px; color: var(--mauve); line-height: 1.4; margin-top: 3px; }
+  .r-buy { display: grid; justify-items: end; gap: 6px; }
+  .r-buy em { font-style: normal; font-weight: 600; font-size: 18px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  @media (min-width: 900px) {
+    .hero { padding-top: 24px; }
+    .hero-grid {
+      grid-template-columns: 1fr 1.05fr; column-gap: 64px; align-items: center;
+      grid-template-areas: "title stage" "quiz stage";
+    }
+    .hero-title { align-self: end; }
+    .quiz { align-self: start; margin-top: 30px; max-width: 470px; }
+    .stage-wrap { margin: 0; }
+    .stage { width: min(100%, 500px); }
+  }
+  @media (min-width: 420px) and (max-width: 899px) { .stage { width: min(100%, 330px); } }
+
+  /* Секции */
+  section.block { padding: 64px 0; }
+  .block h2 { font-size: clamp(36px, 8.6vw, 58px); line-height: 1.04; margin-bottom: 10px; }
+  .block .sub { color: var(--mauve); margin: 0 0 30px; max-width: 40ch; }
+
+  /* Готовые букеты */
+  .ready {
+    display: grid; grid-auto-flow: column; grid-auto-columns: 72%; gap: 18px;
+    overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; scroll-padding-inline: var(--gutter);
+    margin: 0 calc(var(--gutter) * -1); padding: 0 var(--gutter) 4px;
+  }
+  .ready::-webkit-scrollbar { display: none; }
+  @media (min-width: 720px) { .ready { grid-auto-flow: row; grid-template-columns: repeat(3, 1fr); margin: 0; padding: 0; overflow: visible; row-gap: 44px; } }
+  .card { scroll-snap-align: start; display: grid; gap: 4px; align-content: start; }
+  .arch { aspect-ratio: 4 / 5; margin-bottom: 10px; border-radius: 999px 999px 6px 6px; overflow: hidden; background: var(--petal); }
+  .arch img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .card h3 { font: italic 500 28px/1.1 var(--display); }
+  .card p { margin: 0; font-size: 14px; color: var(--mauve); line-height: 1.45; min-height: 2.9em; }
+  .card .buy { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
+  .card .buy em { font-style: normal; font-weight: 600; font-size: 19px; font-variant-numeric: tabular-nums; }
+
+  /* Доставка */
+  .delivery { background: var(--petal); }
+  .now-line { font: 500 clamp(28px, 6.6vw, 44px)/1.15 var(--display); margin: 6px 0 34px; max-width: 22ch; }
+  .facts { margin: 0; display: grid; gap: 22px; }
+  @media (min-width: 720px) { .facts { grid-template-columns: repeat(2, 1fr); column-gap: 48px; } }
+  .facts div { border-top: 1px solid rgba(74, 47, 54, .2); padding-top: 14px; }
+  .facts dt { font-weight: 600; margin-bottom: 4px; }
+  .facts dd { margin: 0; color: var(--plum-2); max-width: 36ch; }
+
+  /* Отзывы и контакты */
+  .two { display: grid; gap: 48px; }
+  @media (min-width: 900px) { .two { grid-template-columns: 1fr 1fr; } }
+  .contacts dl { margin: 0 0 26px; display: grid; gap: 14px; }
+  .contacts dt { color: var(--mauve); font-size: 14px; }
+  .contacts dd { margin: 0; font-size: 18px; }
+  .msgs { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  footer {
+    background: var(--plum); color: #E3CBC9; font-size: 14px;
+    padding: 40px 0 calc(56px + 76px);
+  }
+  @media (min-width: 900px) { footer { padding-bottom: 56px; } }
+  footer a { color: #fff; }
+
+  /* Нижняя панель на телефоне */
+  .dock {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+    display: grid; grid-template-columns: 1fr auto; gap: 10px;
+    padding: 10px var(--gutter) calc(10px + env(safe-area-inset-bottom));
+    background: rgba(251, 243, 241, .94); backdrop-filter: blur(8px);
+    border-top: 1px solid var(--rule);
+    transform: translateY(110%); transition: transform .3s ease;
+  }
+  .dock.on { transform: none; }
+  .dock .btn { padding: 16px 20px; }
+  @media (min-width: 900px) { .dock { display: none; } }
+
+  /* Заказ */
+  dialog.sheet {
+    border: 0; padding: 0; color: var(--plum); background: var(--paper);
+    width: 100%; max-width: 520px; margin: auto auto 0; max-height: 92vh;
+    border-radius: 24px 24px 0 0;
+  }
+  @media (min-width: 720px) { dialog.sheet { margin: auto; border-radius: 24px; } }
+  dialog.sheet::backdrop { background: rgba(74, 47, 54, .45); }
+  dialog[open].sheet { animation: rise .32s cubic-bezier(.2, .8, .3, 1); }
+  @keyframes rise { from { transform: translateY(40px); opacity: 0; } }
+  .sheet-in { padding: 24px var(--gutter) calc(24px + env(safe-area-inset-bottom)); display: grid; gap: 18px; }
+  @media (min-width: 720px) { .sheet-in { padding: 30px 32px; } }
+  .sheet-head { display: flex; justify-content: space-between; gap: 16px; align-items: start; }
+  .s-who { display: grid; grid-template-columns: 64px 1fr; gap: 14px; align-items: center; }
+  .s-who img { width: 64px; height: 80px; object-fit: cover; display: block; border-radius: 32px 32px 4px 4px; background: var(--petal); }
+  .sheet-head h2 { font: italic 500 32px/1.05 var(--display); }
+  .sheet-head p { margin: 6px 0 0; color: var(--mauve); font-size: 15px; }
+  .x { border: 0; background: transparent; font-size: 28px; line-height: 1; padding: 4px 8px; cursor: pointer; color: var(--mauve); }
+  .sheet fieldset { border: 0; margin: 0; padding: 0; }
+  .sheet legend { font-size: 14px; color: var(--mauve); margin-bottom: 8px; padding: 0; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips button {
+    border: 0; background: var(--petal); color: var(--plum-2); border-radius: 999px;
+    padding: 10px 16px; cursor: pointer; font-size: 15px; font-weight: 500;
+  }
+  .chips button[aria-pressed="true"] { background: var(--plum); color: var(--powder); }
+  .chips button:disabled { opacity: .35; cursor: default; text-decoration: line-through; }
+  .bubble-label { font-size: 14px; color: var(--mauve); margin: 0 0 8px; }
+  .bubble {
+    margin: 0; background: #E9F0EC; color: #2F3E37; border-radius: 18px 18px 18px 4px;
+    padding: 14px 16px; font-size: 15px; line-height: 1.5;
+  }
+  .send { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 8px; }
+  .send .btn { padding: 15px 8px; font-size: 15px; }
+  .sheet .fine { margin: 0; font-size: 13px; color: var(--mauve); }
+  .done { text-align: center; padding: 18px 0 6px; display: grid; gap: 12px; justify-items: center; }
+  .done svg { width: 84px; height: 84px; }
+  .done h2 { font: italic 500 34px/1.1 var(--display); }
+  .done p { margin: 0; color: var(--plum-2); max-width: 32ch; }
+
+  .toast {
+    position: fixed; left: 50%; bottom: 96px; z-index: 30;
+    transform: translate(-50%, 20px); opacity: 0; pointer-events: none;
+    background: var(--plum); color: var(--powder); border-radius: 14px;
+    padding: 14px 18px; max-width: min(420px, calc(100vw - 32px)); font-size: 15px;
+    transition: opacity .25s, transform .25s;
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  /* Букет: распускание */
+  .tag-text { font: italic 500 19px var(--display); fill: var(--plum); }
+  .play .hd { animation: bloom 1s cubic-bezier(.2, .75, .25, 1.12) var(--d) both; transform-box: fill-box; transform-origin: center; }
+  .play .pt { animation: unfurl 1.1s cubic-bezier(.2, .7, .3, 1) var(--d) both; transform-box: fill-box; transform-origin: center; }
+  .play .sg { animation: grow .9s cubic-bezier(.3, .7, .3, 1) var(--d) both; transform-box: fill-box; transform-origin: 50% 100%; }
+  .play .tg { animation: hang .7s cubic-bezier(.3, .8, .3, 1.2) var(--d) both; transform-box: fill-box; transform-origin: 0 0; }
+  @keyframes bloom { from { transform: scale(.12) rotate(-40deg); opacity: 0; } 35% { opacity: 1; } }
+  @keyframes unfurl { from { transform: rotate(-28deg) scale(.55); } }
+  @keyframes grow { from { transform: scale(.15); opacity: 0; } 40% { opacity: 1; } }
+  @keyframes hang { from { transform: rotate(-24deg) translateY(-10px); opacity: 0; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .play .hd, .play .pt, .play .sg, .play .tg, .swap { animation: none; }
+    dialog[open].sheet { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="demo-bar">Демо-сайт: название, цены и букеты условные. Нравится? <a href="#" data-demo-contact>Напишите Михаилу из «Покажу»</a></div>
+
+<header class="wrap top">
+  <a class="logo" href="#"><b>Пионовый сад</b><span>цветы с доставкой</span></a>
+  <a class="phone" href="#contacts">+7 900 000-00-00<small>ежедневно 9:00-21:00</small></a>
+</header>
+
+<main>
+  <section class="hero" id="bouquet" aria-label="Подбор букета">
+    <div class="wrap hero-grid">
+      <div class="hero-title">
+        <h1>Соберём букет, который скажет за вас</h1>
+        <p class="lead">Три вопроса, и букет соберётся здесь.</p>
+      </div>
+
+      <div class="stage-wrap">
+        <div class="stage"><svg id="bq" viewBox="20 56 360 384" role="img" aria-label="Букет, который меняется по вашим ответам"></svg></div>
+      </div>
+
+      <div class="quiz" id="quiz">
+        <div class="progress" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="q-head">
+          <span id="q-count"></span>
+          <button class="linkish" type="button" id="q-back">Назад</button>
+        </div>
+        <div id="q-body" aria-live="polite"></div>
+        <a class="more" href="#ready" id="q-more">Или выберите из готовых букетов</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="ready">
+    <div class="wrap">
+      <h2>Готовые букеты на сегодня</h2>
+      <p class="sub">Собраны утром, можно забрать или заказать доставку через час. Листайте вбок.</p>
+      <div class="ready" id="ready-list"></div>
+    </div>
+  </section>
+
+  <section class="block delivery" id="delivery">
+    <div class="wrap">
+      <h2>Доставка</h2>
+      <p class="now-line" id="now-line">Закажите до 18:00 - привезём сегодня.</p>
+      <dl class="facts">
+        <div><dt>По городу</dt><dd>400 ₽, от 5 000 ₽ бесплатно.</dd></div>
+        <div><dt>Ко времени</dt><dd>За два часа после заказа или к точному часу, например к началу праздника.</dd></div>
+        <div><dt>Фото перед отправкой</dt><dd>Пришлём фото готового букета в мессенджер. Если что-то не так, поправим до выезда.</dd></div>
+        <div><dt>Самовывоз</dt><dd>ул. Садовая, 12. Букет будет готов к вашему приходу.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="block" id="contacts">
+    <div class="wrap two">
+      <div>
+        <h2>Отзывы</h2>
+        <p class="sub">Все отзывы покупателей собраны в нашей карточке на Яндекс Картах. Там же фото букетов.</p>
+        <a class="btn ghost" href="#" data-demo-link>Читать отзывы на Яндекс Картах</a>
+      </div>
+      <div class="contacts">
+        <h2>Как нас найти</h2>
+        <dl>
+          <div><dt>Адрес</dt><dd>ул. Садовая, 12</dd></div>
+          <div><dt>Часы работы</dt><dd>Ежедневно 9:00-21:00</dd></div>
+          <div><dt>Телефон</dt><dd>+7 900 000-00-00</dd></div>
+        </dl>
+        <div class="msgs">
+          <a class="btn" href="#" data-demo-link>Telegram</a>
+          <a class="btn ghost" href="#" data-demo-link>MAX</a>
+          <a class="btn ghost" href="#" data-demo-link>WhatsApp</a>
+          <a class="btn ghost" href="#" data-demo-link>ВКонтакте</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Это демо сделано студией «Покажу». Такой же сайт может быть у вашего цветочного магазина. <a href="#" data-demo-contact>Написать Михаилу</a></div>
+</footer>
+
+<div class="dock" id="dock">
+  <a class="btn" href="#bouquet">Собрать букет</a>
+  <a class="btn ghost" href="#" data-demo-link>Написать</a>
+</div>
+
+<dialog class="sheet" id="sheet" aria-labelledby="s-title">
+  <div class="sheet-in" id="s-form">
+    <div class="sheet-head">
+      <div class="s-who">
+        <img id="s-img" src="" alt="" width="640" height="800">
+        <div>
+          <h2 id="s-title"></h2>
+          <p id="s-sub"></p>
+        </div>
+      </div>
+      <button class="x" type="button" data-close aria-label="Закрыть">×</button>
+    </div>
+    <fieldset>
+      <legend>Как получить</legend>
+      <div class="chips" id="s-way">
+        <button type="button" data-v="Доставка">Доставка</button>
+        <button type="button" data-v="Самовывоз">Самовывоз</button>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Когда</legend>
+      <div class="chips" id="s-days"></div>
+    </fieldset>
+    <div>
+      <p class="bubble-label">Сообщение флористу</p>
+      <p class="bubble" id="s-msg"></p>
+    </div>
+    <div class="send">
+      <button class="btn" type="button" data-send="Telegram">Telegram</button>
+      <button class="btn ghost" type="button" data-send="MAX">MAX</button>
+      <button class="btn ghost" type="button" data-send="WhatsApp">WhatsApp</button>
+    </div>
+    <p class="fine">Демо: на вашем сайте этот текст сразу уйдёт вам в мессенджер. Заказ ваш, без комиссии площадки.</p>
+  </div>
+  <div class="sheet-in" id="s-done" hidden>
+    <div class="done">
+      <svg viewBox="-42 -42 84 84" aria-hidden="true" id="s-seal"></svg>
+      <h2>Заказ у флориста</h2>
+      <p id="s-done-text"></p>
+      <button class="btn ghost" type="button" data-close>Готово</button>
+    </div>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(() => {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const rub = n => n.toLocaleString("ru-RU") + " ₽";
+  const pl = (n, f) => { const a = n % 100, b = n % 10; return f[a > 10 && a < 20 ? 2 : b === 1 ? 0 : b >= 2 && b <= 4 ? 1 : 2]; };
+
+  /* ---------- Рисуем букет ---------- */
+  const PAL = {
+    powder: { o: "#EFC2BE", m: "#F7DAD5", i: "#E1A3A1", l: "#BF8586" },
+    cream:  { o: "#F5E1D9", m: "#FFF3EE", i: "#E9CBC1", l: "#C29C92" },
+    rose:   { o: "#D7848E", m: "#E6A3AA", i: "#BF6474", l: "#9A4A5A" },
+    peach:  { o: "#F2C1A2", m: "#F8DBC6", i: "#E7A782", l: "#C48565" }
+  };
+  const STYLE = {
+    start:     { types: ["peony", "rose", "tulip", "peony"], pals: ["powder", "cream", "peach", "powder"] },
+    mama:      { types: ["peony"], pals: ["powder", "cream", "powder"] },
+    love:      { types: ["rose"], pals: ["rose", "rose", "powder"] },
+    colleague: { types: ["tulip"], pals: ["peach", "cream", "peach"] },
+    self:      { types: ["peony", "tulip", "rose"], pals: ["cream", "peach", "powder"] }
+  };
+  const SIZE = {
+    start: { n: 9,  sp: 6, fl: 4, k: 1,    dy: 8 },
+    s:     { n: 5,  sp: 4, fl: 2, k: 1.1,  dy: 30 },
+    m:     { n: 9,  sp: 6, fl: 4, k: 1,    dy: 8 },
+    l:     { n: 13, sp: 8, fl: 6, k: .92,  dy: 0 }
+  };
+  const SLOTS = [[200,172,1],[150,196,.92],[252,194,.95],[178,128,.88],[232,130,.9],[112,156,.8],[290,158,.82],[200,232,.9],[140,250,.82],[262,248,.84],[150,94,.72],[254,92,.74],[202,78,.7]];
+  const FILL = [[122,214],[280,210],[168,86],[238,84],[92,188],[308,186]];
+  const f1 = v => Math.round(v * 10) / 10;
+
+  function petals(n, len, w, fill, line, rot) {
+    let s = "";
+    for (let i = 0; i < n; i++) {
+      s += `<ellipse cx="0" cy="${f1(-len / 2)}" rx="${f1(w / 2)}" ry="${f1(len / 2)}" transform="rotate(${f1(rot + i * 360 / n)})" fill="${fill}" stroke="${line}" stroke-width="1" stroke-opacity=".45"/>`;
+    }
+    return s;
+  }
+  const ring = (d, inner) => `<g class="pt" style="--d:${d}s">${inner}</g>`;
+
+  function peony(r, p, rot, d) {
+    return ring(d, `<circle r="${f1(r * .9)}" fill="${p.o}"/>` + petals(9, r, r * .72, p.o, p.l, rot))
+      + ring(d + .12, petals(7, r * .72, r * .62, p.m, p.l, rot + 20))
+      + ring(d + .24, petals(5, r * .44, r * .5, p.i, p.l, rot + 44)
+        + `<path d="M${f1(-r * .2)} ${f1(r * .05)} Q0 ${f1(-r * .24)} ${f1(r * .2)} ${f1(r * .05)} M${f1(-r * .1)} ${f1(r * .16)} Q0 ${f1(-r * .02)} ${f1(r * .12)} ${f1(r * .16)}" fill="none" stroke="${p.l}" stroke-width="1.3" stroke-linecap="round"/>`);
+  }
+  function rose(r, p, rot, d) {
+    const k = r / 34;
+    return ring(d, petals(5, r, r * .95, p.o, p.l, rot))
+      + ring(d + .14, `<circle r="${f1(r * .62)}" fill="${p.m}" stroke="${p.l}" stroke-opacity=".5"/>`
+        + `<path transform="scale(${f1(k)}) rotate(${rot})" d="M0 -3 a3 3 0 0 1 3 3 a6 6 0 0 1 -6 6 a9 9 0 0 1 -9 -9 a13 13 0 0 1 13 -13 a17 17 0 0 1 17 17" fill="none" stroke="${p.l}" stroke-width="${f1(1.6 / k)}" stroke-linecap="round"/>`
+        + `<circle r="${f1(r * .1)}" fill="${p.i}"/>`);
+  }
+  function tulip(r, p, d) {
+    const a = v => f1(v * r);
+    return ring(d, `<ellipse cx="0" cy="${a(-.25)}" rx="${a(.6)}" ry="${a(.75)}" fill="${p.i}"/>`
+      + `<path d="M0 ${a(.6)} C${a(-.9)} ${a(.5)} ${a(-.95)} ${a(-.45)} ${a(-.48)} ${a(-.98)} C${a(-.22)} ${a(-.5)} ${a(-.05)} 0 0 ${a(.6)}Z" fill="${p.o}" stroke="${p.l}" stroke-opacity=".5"/>`
+      + `<path d="M0 ${a(.6)} C${a(.9)} ${a(.5)} ${a(.95)} ${a(-.45)} ${a(.48)} ${a(-.98)} C${a(.22)} ${a(-.5)} ${a(.05)} 0 0 ${a(.6)}Z" fill="${p.o}" stroke="${p.l}" stroke-opacity=".5"/>`)
+      + ring(d + .14, `<path d="M0 ${a(.64)} C${a(-.52)} ${a(.52)} ${a(-.46)} ${a(-.5)} 0 ${a(-.88)} C${a(.46)} ${a(-.5)} ${a(.52)} ${a(.52)} 0 ${a(.64)}Z" fill="${p.m}" stroke="${p.l}" stroke-opacity=".5"/>`
+        + `<path d="M0 ${a(.45)} L0 ${a(-.5)}" stroke="${p.l}" stroke-opacity=".35" stroke-width="1.2"/>`);
+  }
+  function sprig(a, len, bend, d, base) {
+    const xAt = t => 2 * (1 - t) * t * bend;
+    let leaves = "";
+    for (let t = .38, j = 0; t <= 1.001; t += .09, j++) {
+      const side = j % 2 ? 1 : -1, rr = 9 - t * 3.5;
+      leaves += `<circle cx="${f1(xAt(t) + side * (rr * .8))}" cy="${f1(-len * t)}" r="${f1(rr)}" fill="${j % 2 ? "#9CB4A7" : "#8AA394"}" stroke="#6F8A7D" stroke-opacity=".55"/>`;
+    }
+    return `<g transform="translate(200 ${base}) rotate(${f1(a)})"><g class="sg" style="--d:${d}s">`
+      + `<path d="M0 0 Q${f1(bend)} ${f1(-len / 2)} 0 ${f1(-len)}" fill="none" stroke="#7E9A8C" stroke-width="2"/>${leaves}</g></g>`;
+  }
+  function spray(x, y, d) {
+    const dots = [[-9, -6], [2, -12], [11, -4], [-3, -18], [8, -16]];
+    return `<g transform="translate(${x} ${y})"><g class="hd" style="--d:${d}s">`
+      + `<path d="M0 14 ${dots.map(([a, b]) => `M0 14 L${a} ${b}`).join(" ")}" stroke="#9DB5A8" stroke-width="1.1" fill="none"/>`
+      + dots.map(([a, b]) => `<circle cx="${a}" cy="${b}" r="3.4" fill="#FFFAF8" stroke="#D8BBB6"/>`).join("") + `</g></g>`;
+  }
+
+  const TAGS = { bday: "С днём рождения", date: "Тебе", sorry: "Прости меня", just: "Просто так" };
+
+  function bouquet({ style = "start", size = "start", tag = null, fast = false }) {
+    const st = STYLE[style], sz = SIZE[size];
+    const t0 = fast ? 0 : .35, step = fast ? .045 : .09;
+    let out = `<path d="M200 418 L64 214 L104 196 L86 132 L154 156 L176 92 L210 138 L252 86 L262 150 L322 124 L300 196 L338 214 Z" fill="#F8E7E3" stroke="#E6C6C1" stroke-linejoin="round"/>`
+      + `<path d="M192 412 L189 432 M200 412 L200 434 M208 412 L211 431" stroke="#7E9A8C" stroke-width="3.2" stroke-linecap="round"/>`;
+    for (let i = 0; i < sz.sp; i++) {
+      const a = sz.sp === 1 ? 0 : -50 + i * 100 / (sz.sp - 1);
+      out += sprig(a + (i % 2 ? 4 : -4), 196 + (i % 2) * 22 - sz.dy * .5, i % 2 ? 14 : -14, t0 + i * step * .6, 300 + sz.dy);
+    }
+    for (let i = 0; i < sz.fl; i++) out += spray(FILL[i][0], FILL[i][1] + sz.dy, t0 + .2 + i * step);
+    const heads = SLOTS.slice(0, sz.n).map(([x, y, s], i) => ({ x, y: y + sz.dy, r: 41 * s * sz.k, i }));
+    heads.sort((a, b) => a.y - b.y).forEach(h => {
+      const type = st.types[h.i % st.types.length];
+      const p = PAL[st.pals[(h.i + (h.i > 3 ? 1 : 0)) % st.pals.length]];
+      const d = t0 + .15 + h.i * step;
+      const rot = (h.i * 47) % 360;
+      let inner, tr = `translate(${h.x} ${h.y})`;
+      if (type === "tulip") {
+        const lean = Math.atan2(h.x - 200, 300 + sz.dy - h.y) * 180 / Math.PI;
+        tr += ` rotate(${f1(lean)})`;
+        inner = tulip(h.r * .95, p, d);
+      } else inner = (type === "rose" ? rose : peony)(h.r, p, rot, d);
+      out += `<g transform="${tr}"><g class="hd" style="--d:${f1(d * 100) / 100}s">${inner}</g></g>`;
+    });
+    out += `<path d="M114 258 C150 276 250 276 286 258 L214 414 L186 414 Z" fill="#EBC4C0" stroke="#D9A9A6" stroke-linejoin="round"/>`
+      + `<path d="M114 258 C146 272 172 300 197 414 L186 414 Z" fill="#F3D5D1" stroke="#D9A9A6" stroke-linejoin="round"/>`
+      + `<path d="M200 362 C180 340 154 350 164 366 C171 377 190 371 200 362Z M200 362 C220 340 246 350 236 366 C229 377 210 371 200 362Z" fill="#C98690" stroke="#A8636E" stroke-linejoin="round"/>`
+      + `<path d="M198 364 L184 398 L192 394 L196 403Z M202 364 L216 398 L208 394 L204 403Z" fill="#B9737D"/>`
+      + `<circle cx="200" cy="363" r="5" fill="#B9737D"/>`;
+    if (tag) {
+      out += `<g class="tg" style="--d:${f1(t0 + .5 + sz.n * step * .5)}s"><path d="M204 366 C214 378 222 382 232 384" fill="none" stroke="#A8636E" stroke-width="1.2"/>`
+        + `<g transform="translate(230 380) rotate(6)"><rect width="138" height="42" rx="4" fill="#FFFDFC" stroke="#D7B5B1"/>`
+        + `<text class="tag-text" x="69" y="27" text-anchor="middle">${TAGS[tag]}</text></g></g>`;
+    }
+    return out;
+  }
+
+  /* ---------- Каталог ---------- */
+  const F = {
+    peony: ["пион", "пиона", "пионов"],
+    peonyRose: ["пионовидная роза", "пионовидные розы", "пионовидных роз"],
+    rose: ["роза", "розы", "роз"],
+    tulip: ["тюльпан", "тюльпана", "тюльпанов"],
+    creamRose: ["кремовая роза", "кремовые розы", "кремовых роз"]
+  };
+  const TIER = { s: 0, m: 1, l: 2 };
+  const CAT = {
+    mama: [
+      { name: "Нежность", img: "nezhnost", f: F.rose, extra: "эвкалипт, гипсофила", n: [5, 9, 15], p: [2900, 4600, 7400], st: "mama" },
+      { name: "Сад у дома", img: "sad-u-doma", f: null, extra: "розы, гвоздики, эустома и гипсофила", p: [2400, 3800, 5600], st: "self" },
+      { name: "Шляпная коробка", img: "shlyapnaya-korobka", f: F.peonyRose, extra: "в шляпной коробке", n: [7, 11, 15], p: [2900, 4800, 7200], st: "mama" }
+    ],
+    love: [
+      { name: "Только ты", img: "tolko-ty", f: F.rose, extra: "гвоздики, эустома, лента", n: [7, 11, 19], p: [2700, 4900, 7900], st: "love" },
+      { name: "Первое свидание", img: "pervoe-svidanie", f: F.rose, extra: "гипсофила", n: [5, 9, 13], p: [2600, 4200, 6400], st: "love" },
+      { name: "Без слов", img: "bez-slov", f: F.rose, extra: "эустома, лимониум", n: [7, 11, 19], p: [2900, 4500, 6800], st: "love" }
+    ],
+    colleague: [
+      { name: "Утро", img: "utro", f: F.tulip, extra: "сезонные цветы", n: [7, 11, 19], p: [2200, 3400, 5200], st: "colleague" },
+      { name: "Спасибо", img: "spasibo", f: null, extra: "розы, гвоздики и гипсофила в пудровой упаковке", p: [2300, 3600, 5600], st: "colleague" },
+      { name: "В крафте", img: "v-krafte", f: F.peony, extra: "в крафтовой бумаге", n: [3, 5, 9], p: [2900, 4600, 7900], st: "self" }
+    ],
+    self: [
+      { name: "Для настроения", img: "dlya-nastroeniya", f: null, extra: "анемоны, розы, гвоздики и хризантемы", p: [2500, 4100, 6300], st: "self" },
+      { name: "Сливки", img: "slivki", f: F.creamRose, extra: "гвоздики, эвкалипт", n: [5, 9, 15], p: [2800, 4400, 6900], st: "self" },
+      { name: "На выбор флориста", img: "na-vybor", f: null, extra: "сезонные цветы, соберём по вашему настроению", p: [2500, 4000, 6000], st: "start" }
+    ]
+  };
+  const pic = (o, cls) => `<img class="${cls}" src="img/${o.img}.jpg" alt="Букет «${o.name}»" width="640" height="800" loading="lazy" decoding="async">`;
+  const comp = (o, t) => o.f ? `${o.n[t]} ${pl(o.n[t], o.f)}${o.extra.startsWith("в ") ? " " : ", "}${o.extra}` : o.extra[0].toUpperCase() + o.extra.slice(1);
+
+  /* ---------- Подбор за 3 вопроса ---------- */
+  const Q = [
+    { key: "who", title: "Кому дарите?", opts: [["mama", "Маме"], ["love", "Любимой"], ["colleague", "Коллеге"], ["self", "Себе"]] },
+    { key: "why", title: "Какой повод?", opts: [["bday", "День рождения"], ["date", "Свидание"], ["sorry", "Извиниться"], ["just", "Просто так"]] },
+    { key: "budget", title: "Какой бюджет?", opts: [["s", "До 3 000 ₽"], ["m", "3 000-5 000 ₽"], ["l", "От 5 000 ₽"]] }
+  ];
+  const FOR = { mama: "для мамы", love: "для любимой", colleague: "для коллеги", self: "для себя" };
+  const WHY = { bday: "на день рождения", date: "на свидание", sorry: "чтобы извиниться", just: "просто так" };
+  const BUDGET = { s: "до 3 000 ₽", m: "3 000-5 000 ₽", l: "от 5 000 ₽" };
+
+  const st = { step: 0, who: null, why: null, budget: null };
+  const bq = $("#bq"), body = $("#q-body");
+
+  function drawHero(fast) {
+    bq.classList.toggle("play", !reduce);
+    bq.innerHTML = bouquet({ style: st.who || "start", size: st.budget || "start", tag: st.why, fast });
+  }
+
+  function renderQuiz(anim) {
+    $$(".progress i").forEach((el, i) => el.classList.toggle("on", i <= st.step));
+    const done = st.step >= Q.length;
+    $("#q-back").hidden = st.step === 0;
+    $("#q-back").textContent = done ? "Изменить ответы" : "Назад";
+    $("#q-more").hidden = done;
+    if (!done) {
+      const q = Q[st.step];
+      $("#q-count").textContent = `Вопрос ${st.step + 1} из 3`;
+      body.innerHTML = `<h2 class="q-title">${q.title}</h2><div class="opts">`
+        + q.opts.map(([v, t]) => `<button type="button" data-v="${v}" aria-pressed="${st[q.key] === v}">${t}</button>`).join("") + `</div>`;
+    } else {
+      const t = TIER[st.budget];
+      $("#q-count").textContent = "Готово";
+      body.innerHTML = `<h2 class="q-title">Три букета ${FOR[st.who]}</h2>`
+        + `<p class="r-sub">${WHY[st.why][0].toUpperCase() + WHY[st.why].slice(1)}, ${BUDGET[st.budget]}.</p><ul class="res">`
+        + CAT[st.who].map((o, i) => `<li>${pic(o, "r-pic")}<div><b>${o.name}</b><span>${comp(o, t)}</span></div>`
+          + `<div class="r-buy"><em>${rub(o.p[t])}</em><button class="btn sm" type="button" data-o="${i}">Заказать</button></div></li>`).join("")
+        + `</ul>`;
+    }
+    if (anim) { body.classList.remove("swap"); void body.offsetWidth; body.classList.add("swap"); }
+  }
+
+  body.addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    if (b.dataset.o !== undefined) {
+      const t = TIER[st.budget], o = CAT[st.who][+b.dataset.o];
+      return openSheet({ name: o.name, img: o.img, price: o.p[t], comp: comp(o, t), st: o.st, who: st.who, why: st.why });
+    }
+    const hadFocus = document.activeElement === b;
+    st[Q[st.step].key] = b.dataset.v;
+    st.step++;
+    drawHero(true);
+    renderQuiz(true);
+    if (hadFocus) { const n = $("button", body); if (n) n.focus({ preventScroll: true }); }
+  });
+  $("#q-back").addEventListener("click", () => {
+    st.step = st.step >= Q.length ? 0 : st.step - 1;
+    renderQuiz(true);
+  });
+
+  drawHero(false);
+  renderQuiz(false);
+
+  /* ---------- Готовые букеты ---------- */
+  const READY = [["mama", 0, "m"], ["love", 0, "l"], ["colleague", 0, "m"], ["self", 1, "m"], ["colleague", 1, "s"], ["love", 2, "m"]];
+  $("#ready-list").innerHTML = READY.map(([who, i, size], k) => {
+    const o = CAT[who][i], t = TIER[size];
+    return `<article class="card"><div class="arch">${pic(o, "")}</div>`
+      + `<h3>${o.name}</h3><p>${comp(o, t)}</p>`
+      + `<div class="buy"><em>${rub(o.p[t])}</em><button class="btn sm" type="button" data-r="${k}">Заказать</button></div></article>`;
+  }).join("");
+  $("#ready-list").addEventListener("click", e => {
+    const b = e.target.closest("[data-r]"); if (!b) return;
+    const [who, i, size] = READY[+b.dataset.r], o = CAT[who][i], t = TIER[size];
+    openSheet({ name: o.name, img: o.img, price: o.p[t], comp: comp(o, t), st: o.st });
+  });
+
+  /* ---------- Доставка: успеваем ли сегодня ---------- */
+  const now = new Date();
+  const hm = `${now.getHours()}:${String(now.getMinutes()).padStart(2, "0")}`;
+  const late = now.getHours() >= 18;
+  $("#now-line").textContent = late
+    ? `Сейчас ${hm}. Сегодня уже не успеем - привезём завтра с 9 утра.`
+    : `Сейчас ${hm}. Закажите до 18:00 - привезём сегодня.`;
+
+  /* ---------- Заказ ---------- */
+  const sheet = $("#sheet"), wayBox = $("#s-way"), daysBox = $("#s-days");
+  const months = ["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"];
+  const days = [0, 1, 2].map(d => {
+    const dt = new Date(now); dt.setDate(now.getDate() + d);
+    return d === 0 ? "Сегодня" : d === 1 ? "Завтра" : `${dt.getDate()} ${months[dt.getMonth()]}`;
+  });
+  daysBox.innerHTML = days.map((d, i) => `<button type="button" data-i="${i}">${d}</button>`).join("");
+  const pickOne = (box, btn) => $$("button", box).forEach(x => x.setAttribute("aria-pressed", x === btn));
+  let order = {};
+
+  function syncDays() {
+    const todayOff = order.way === "Доставка" ? late : now.getHours() >= 20;
+    const first = $("button", daysBox);
+    first.disabled = todayOff;
+    if (todayOff && order.day === 0) order.day = 1;
+    pickOne(daysBox, $$("button", daysBox)[order.day]);
+  }
+  function writeMsg() {
+    const who = [order.who && FOR[order.who], order.why && WHY[order.why]].filter(Boolean).join(", ");
+    const day = order.day === 2 ? days[2] : days[order.day].toLowerCase();
+    $("#s-msg").textContent = `Здравствуйте! Хочу букет «${order.name}» за ${rub(order.price)}${who ? " " + who : ""}. ${order.way} ${day}.`;
+  }
+  function openSheet(o) {
+    order = { ...o, way: "Доставка", day: 0 };
+    $("#s-title").textContent = o.name;
+    $("#s-img").src = `img/${o.img}.jpg`;
+    $("#s-sub").textContent = `${o.comp}. ${rub(o.price)}`;
+    pickOne(wayBox, $("button", wayBox));
+    syncDays(); writeMsg();
+    $("#s-form").hidden = false; $("#s-done").hidden = true;
+    sheet.showModal();
+  }
+  wayBox.addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    order.way = b.dataset.v; pickOne(wayBox, b); syncDays(); writeMsg();
+  });
+  daysBox.addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b || b.disabled) return;
+    order.day = +b.dataset.i; pickOne(daysBox, b); writeMsg();
+  });
+  $$("[data-send]").forEach(b => b.addEventListener("click", () => {
+    const m = b.dataset.send;
+    $("#s-seal").innerHTML = peony(34, PAL[order.st === "love" ? "rose" : order.st === "colleague" ? "peach" : "powder"], 12, .05);
+    $("#s-seal").classList.toggle("play", !reduce);
+    $("#s-done-text").textContent = order.way === "Доставка"
+      ? `Флорист ответит в ${m}, уточнит адрес и пришлёт фото букета перед отправкой.`
+      : `Флорист ответит в ${m} и напишет, когда букет будет готов. Адрес: ул. Садовая, 12.`;
+    $("#s-form").hidden = true; $("#s-done").hidden = false;
+  }));
+  $$("[data-close]").forEach(b => b.addEventListener("click", () => sheet.close()));
+  sheet.addEventListener("click", e => { if (e.target === sheet) sheet.close(); });
+
+  /* ---------- Нижняя панель ---------- */
+  const dock = $("#dock"), quiz = $("#quiz");
+  const dockCheck = () => dock.classList.toggle("on", quiz.getBoundingClientRect().bottom < 0);
+  addEventListener("scroll", dockCheck, { passive: true });
+  dockCheck();
+
+  /* ---------- В демо ссылки никуда не ведут ---------- */
+  const toast = $("#toast"); let tt;
+  function say(msg) {
+    toast.textContent = msg; toast.classList.add("show");
+    clearTimeout(tt); tt = setTimeout(() => toast.classList.remove("show"), 4200);
+  }
+  $$("[data-demo-link]").forEach(a => a.addEventListener("click", e => {
+    e.preventDefault(); say("Демо: на настоящем сайте здесь будет ссылка владельца.");
+  }));
+  $$("[data-demo-contact]").forEach(a => a.addEventListener("click", e => {
+    e.preventDefault(); say("Здесь будет ссылка на Telegram Михаила и сайт покажусайт.рф.");
+  }));
+})();
+</script>
+</body>
+</html>
