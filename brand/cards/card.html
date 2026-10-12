@@ -44,6 +44,7 @@
   h1 { margin:0; font:700 76px/1.08 var(--display); letter-spacing:-0.025em; color:var(--white); }
   .sub { margin:28px 0 0; width:560px; font:400 34px/1.4 var(--text); color:#B8C0C8; }
   .foot { position:absolute; left:72px; bottom:44px; }
+  .num { position:absolute; left:72px; top:700px; font:700 124px/1 var(--display); letter-spacing:-0.04em; color:var(--accent); white-space:nowrap; }
 </style>
 </head>
 <body>
@@ -69,7 +70,7 @@
               pen:"проверьте у себя" }
   };
   var P = Object.assign({}, POSTS[q.get("rub") || "demo"]);
-  ["rubric", "demo", "h", "sub", "pen", "pen2", "layout"].forEach(function (k) { if (q.get(k) !== null) P[k] = q.get(k); });
+  ["rubric", "demo", "h", "sub", "pen", "pen2", "layout", "num"].forEach(function (k) { if (q.get(k) !== null) P[k] = q.get(k); });
 
   function phone(x, y, scale, demo) {
     var inner = demo === "before"
@@ -83,8 +84,14 @@
     return '<svg style="left:' + x + 'px;top:' + y + 'px" width="' + w + '" height="' + h + '" viewBox="0 0 ' + w + ' ' + h + '"><path d="' + d + '" fill="none" stroke="#3CC6C2" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   }
 
+  /* Крупная цифра вместо телефона: layout=num, текст цифры в параметре num */
+  var NUM = q.get("num");
+
   var html = '<div class="head"><div class="rubric">' + P.rubric + '</div><h1>' + P.h + '</h1><p class="sub">' + P.sub + '</p></div>';
-  if (P.layout === "two") {
+  if (P.layout === "num") {
+    html += '<div class="num">' + NUM + '</div>';
+    if (P.pen) html += '<div class="pen" style="left:72px;top:1090px;width:900px">' + P.pen + '</div>';
+  } else if (P.layout === "two") {
     /* Два телефона: слева «сейчас» (карточка без сайта), справа демо, между ними шторка */
     html += phone(155, 630, 0.69, "before") + phone(655, 630, 0.69, P.demo);
     html += '<div style="position:absolute;left:535px;top:600px;width:10px;height:660px;border-radius:5px;background:var(--accent)"></div>';

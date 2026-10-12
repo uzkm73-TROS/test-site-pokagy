@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Распускание цветка для поста</title>
+<link href="../../fonts/fonts.css" rel="stylesheet">
+<style>
+  /* Нарисованный цветок распускается: кадр задаётся параметром t от 0 до 1 (bloom.html?t=0.5).
+     Видео собирается из кадров, см. README.md. Размер 1080x1350 (4:5), стиль «Графит». */
+  :root {
+    --white:#FFFFFF; --graphite:#1D2329; --before:#9AA3AD; --accent:#3CC6C2;
+    --display:"Unbounded", sans-serif; --text:"Onest", sans-serif; --hand:"Caveat", cursive;
+  }
+  * { box-sizing:border-box; }
+  html, body { margin:0; width:1080px; height:1350px; overflow:hidden; }
+  body { position:relative; background:var(--graphite); color:var(--white); font-family:var(--text); }
+
+  .head { position:absolute; left:72px; top:96px; width:936px; }
+  .rubric { display:inline-block; padding:14px 26px; border-radius:999px; background:var(--accent); color:var(--graphite);
+            font:600 30px/1 var(--text); margin-bottom:34px; }
+  h1 { margin:0; font:700 76px/1.08 var(--display); letter-spacing:-0.025em; }
+  .sub { margin:28px 0 0; width:760px; font:400 34px/1.4 var(--text); color:#B8C0C8; }
+  .foot { position:absolute; left:72px; bottom:44px; }
+  .logo { display:inline-flex; align-items:stretch; font:700 34px/1 var(--display); letter-spacing:-0.02em; color:var(--white); }
+  .logo .was { color:var(--before); }
+  .logo .cut { width:5px; margin:-5px 6px; border-radius:3px; background:var(--accent); }
+
+  svg#art { position:absolute; left:0; top:0; width:1080px; height:1350px; overflow:visible; }
+  .pen { position:absolute; left:72px; top:1110px; width:300px; font:600 52px/1.05 var(--hand); color:var(--accent); opacity:0; }
+</style>
+</head>
+<body>
+<div class="head">
+  <div class="rubric">Как я работаю</div>
+  <h1>Что от вас нужно для сайта? Почти ничего</h1>
+  <p class="sub">Для демо - вообще ничего. Пишете название и город.</p>
+</div>
+<svg id="art" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg"></svg>
+<div class="pen" id="pen">через 1-2 дня ссылка</div>
+<div class="foot"><span class="logo"><span class="was">пока</span><span class="cut"></span><span>жу</span></span></div>
+<script>
+  var T = parseFloat(new URLSearchParams(location.search).get("t"));
+  if (isNaN(T)) T = 1;
+
+  function clamp(x) { return Math.max(0, Math.min(1, x)); }
+  function seg(t, a, b) { return clamp((t - a) / (b - a)); }
+  function ease(x) { return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; }
+  function out(x) { return 1 - Math.pow(1 - x, 3); }
+
+  /* Лепесток остриём вверх, чуть кривой: «рисованный» контур, у каждого лепестка свои отклонения */
+  function petal(w, tip, len) {
+    return "M0 0 C " + (w * .9) + " " + (-len * .16) + ", " + (w * 1.1 + tip * .3) + " " + (-len * .7) + ", " + tip + " " + (-len) +
+           " C " + (-w * 1.1 + tip * .3) + " " + (-len * .7) + ", " + (-w * .9) + " " + (-len * .16) + ", 0 0 Z";
+  }
+  var WOB = [4, -6, 7, -3, 5, -7, 3, -5];
+
+  var HX = 540, HY = 955, HS = 1.12;   /* точка, из которой растут лепестки, и общий масштаб головки */
+  var svg = "";
+
+  /* Стебель: прорисовывается снизу вверх */
+  var stem = out(seg(T, 0, .12));
+  svg += '<path d="M540 1262 C 552 1180, 528 1080, 540 ' + HY + '" pathLength="1" fill="none" stroke="#2A9D99" stroke-width="13" stroke-linecap="round" stroke-dasharray="1" stroke-dashoffset="' + (1 - stem) + '"/>';
+
+  /* Листья: вырастают и чуть покачиваются */
+  var lf = out(seg(T, .03, .2)), sway = Math.sin(T * 7) * 2.5;
+  function leaf(side) {
+    return '<g transform="translate(' + (540 + side * 4) + ' 1150) rotate(' + (side * (62 + sway)) + ') scale(' + lf + ')">' +
+           '<path d="M0 0 C ' + (side * 40) + ' -30, ' + (side * 46) + ' -120, 0 -170 C ' + (-side * 34) + ' -110, ' + (-side * 22) + ' -40, 0 0 Z" fill="#2A9D99" stroke="#E9FBFA" stroke-width="4" stroke-linejoin="round"/>' +
+           '<path d="M0 -8 C ' + (side * 8) + ' -60, ' + (side * 8) + ' -110, 0 -150" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="3" stroke-linecap="round"/></g>';
+  }
+  svg += leaf(-1) + leaf(1);
+
+  /* Головка */
+  var e = ease(seg(T, .12, .7));
+  var grow = out(seg(T, 0, .1));
+  svg += '<g transform="translate(' + HX + ' ' + HY + ') scale(' + (HS * grow) + ')">';
+
+  function row(count, step, fill, lenK, seedShift) {
+    var s = "", mid = (count - 1) / 2;
+    for (var i = 0; i < count; i++) {
+      var a = (i - mid) * step * (0.12 + 0.88 * e);
+      var len = (150 + 70 * e) * lenK * (1 + Math.abs(i - mid) * -0.03);
+      var w = 40 + 14 * e;
+      var tip = WOB[(i + seedShift) % WOB.length] * (0.3 + 0.7 * e);
+      s += '<g transform="rotate(' + a.toFixed(2) + ')"><path d="' + petal(w, tip, len) + '" fill="' + fill + '" stroke="#E9FBFA" stroke-width="4.5" stroke-linejoin="round"/>' +
+           '<path d="M0 -28 C ' + (tip * .3) + ' ' + (-len * .4) + ', ' + (tip * .5) + ' ' + (-len * .6) + ', ' + (tip * .7) + ' ' + (-len * .78) + '" fill="none" stroke="rgba(255,255,255,.38)" stroke-width="3" stroke-linecap="round"/></g>';
+    }
+    return s;
+  }
+  svg += row(7, 27, "#1B8F8C", 1.0, 0);
+
+  /* Тычинки между рядами, появляются, когда цветок уже раскрылся */
+  var st = out(seg(T, .62, .84));
+  if (st > 0) {
+    for (var k = -2; k <= 2; k++) {
+      var ang = k * 17, L = 120 * st;
+      svg += '<g transform="rotate(' + ang + ')"><path d="M0 -20 C ' + (k * 3) + ' ' + (-L * .5) + ', ' + (k * 5) + ' ' + (-L * .8) + ', ' + (k * 7) + ' ' + (-L) + '" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>' +
+             '<circle cx="' + (k * 7) + '" cy="' + (-L) + '" r="' + (9 * st) + '" fill="#fff" stroke="#1D2329" stroke-width="3"/></g>';
+    }
+  }
+  svg += row(6, 27, "#3CC6C2", 0.92, 3);
+  /* Центральный лепесток, светлее остальных */
+  svg += '<g transform="rotate(0)"><path d="' + petal(36 + 12 * e, 3, (130 + 62 * e)) + '" fill="#8FE6E2" stroke="#E9FBFA" stroke-width="4.5" stroke-linejoin="round"/></g>';
+  svg += '</g>';
+
+  /* Штрихи-искры от руки вокруг цветка */
+  var sp = out(seg(T, .8, .96));
+  if (sp > 0) {
+    var rays = [[-86, 285], [-68, 300], [-52, 315], [52, 315], [68, 300], [86, 285]];
+    rays.forEach(function (r) {
+      var a = r[0] * Math.PI / 180, r0 = r[1], r1 = r[1] + 46 * sp;
+      var x0 = HX + Math.sin(a) * r0, y0 = HY - 120 - Math.cos(a) * r0;
+      var x1 = HX + Math.sin(a) * r1, y1 = HY - 120 - Math.cos(a) * r1;
+      svg += '<line x1="' + x0.toFixed(1) + '" y1="' + y0.toFixed(1) + '" x2="' + x1.toFixed(1) + '" y2="' + y1.toFixed(1) + '" stroke="#3CC6C2" stroke-width="6" stroke-linecap="round"/>';
+    });
+  }
+  document.getElementById("art").innerHTML = svg;
+
+  /* Рукописная пометка проявляется в конце */
+  document.getElementById("pen").style.opacity = out(seg(T, .84, .98));
+</script>
+</body>
+</html>
