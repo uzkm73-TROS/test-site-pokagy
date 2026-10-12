@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<link href="../../fonts/fonts.css" rel="stylesheet">
+<style>
+  :root {
+    --white:#FFFFFF; --graphite:#1D2329; --before:#9AA3AD; --accent:#3CC6C2;
+    --display:"Unbounded", sans-serif; --text:"Onest", sans-serif;
+  }
+  * { box-sizing:border-box; }
+  html, body { margin:0; width:1080px; height:1920px; overflow:hidden; }
+  body { background:var(--graphite); color:var(--white); font-family:var(--text); position:relative; }
+
+  /* Замер по скриншоту Михаила 12.10.2026: приложение ВК показывает x 155-925, y 480-1440 (увеличение ~1,15).
+     Значки сверху перекрывают y до ~670, аватар и название снизу - с ~940. Текст держим в x 200-880, y 690-950. */
+  .safe { position:absolute; left:200px; top:690px; width:680px; height:260px; outline:2px dashed rgba(255,80,80,0); }
+
+  h1 { position:absolute; left:200px; top:690px; width:680px; margin:0;
+       font:700 50px/1.1 var(--display); letter-spacing:-0.025em; }
+  .sub { position:absolute; left:200px; top:822px; width:660px; margin:0; font:400 30px/1.35 var(--text); color:#B8C0C8; }
+
+  .shutter { position:absolute; left:535px; top:960px; width:10px; height:620px; border-radius:5px; background:var(--accent); }
+
+  .phone { position:absolute; background:#0E1216; border-radius:48px; padding:12px;
+           box-shadow:0 0 0 2px #2E3740, 0 40px 120px rgba(60,198,194,.20); }
+  .phone .screen { width:390px; height:844px; overflow:hidden; border-radius:38px; background:#fff; transform-origin:0 0; }
+  .phone iframe { width:390px; height:844px; border:0; display:block; }
+</style>
+</head>
+<body>
+  <div class="safe"></div>
+  <h1>Покажу, как будет<br>выглядеть ваш сайт</h1>
+  <p class="sub">Демо за 1-2 дня бесплатно. Платите, только если понравится.</p>
+
+  <div class="shutter"></div>
+  <div id="phones"></div>
+
+  <script>
+    var D = "../../demos/";
+    function phone(x, y, s, demo, z) {
+      var w = 390 * s + 24, h = 844 * s + 24;
+      return '<div class="phone" style="left:' + x + 'px;top:' + y + 'px;width:' + w + 'px;height:' + h + 'px;z-index:' + z + '">' +
+             '<div class="screen" style="transform:scale(' + s + ')"><iframe src="' + D + demo + '/index.html" scrolling="no"></iframe></div></div>';
+    }
+    document.getElementById("phones").innerHTML =
+      phone(110, 1050, 0.62, "shinomontazh", 1) +
+      phone(391, 1000, 0.70, "barbershop", 3) +
+      phone(704, 1050, 0.62, "salon", 2);
+  </script>
+</body>
+</html>
