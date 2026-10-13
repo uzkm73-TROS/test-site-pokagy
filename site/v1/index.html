@@ -365,6 +365,11 @@
   .foot .wrap { display: flex; flex-wrap: wrap; gap: 10px 28px; align-items: center; justify-content: space-between; }
   .foot .logo { font-size: 18px; }
 
+  /* ---------- Узкие телефоны (320 px): подпись «это я» не должна выходить за экран ---------- */
+  @media (max-width: 359px) {
+    .photo-wrap .note { right: -70px; }
+  }
+
   /* ---------- Планшет и десктоп ---------- */
   @media (min-width: 760px) {
     :root { --gutter: 32px; }
