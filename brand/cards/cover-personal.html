@@ -5,41 +5,55 @@
 <title>Обложка личной страницы ВК «Покажу»</title>
 <link href="../../fonts/fonts.css" rel="stylesheet">
 <style>
-  /* Обложка личной страницы ВКонтакте, 1920x768. Упаковка А «Практик из сервисного бизнеса».
-     Безопасная зона как у обложки сообщества: x 290-1630, y 110-660. */
+  /* Обложка личной страницы ВКонтакте, 1920x768, без фото. Упаковка А «Практик из сервисного бизнеса».
+     На компьютере ВК показывает только среднюю часть: по высоте примерно y 160-610 (сверху и снизу срезается ~150 px),
+     поэтому весь текст и телефоны лежат в этой полосе. Слева внизу на обложку заходит круглое фото профиля
+     (x до ~360), поэтому текст начинается с x=410. По ширине держимся в x 290-1630. */
   :root {
     --white:#FFFFFF; --graphite:#1D2329; --before:#9AA3AD; --accent:#3CC6C2;
-    --display:"Unbounded", sans-serif; --text:"Onest", sans-serif; --hand:"Caveat", cursive;
+    --display:"Unbounded", sans-serif; --text:"Onest", sans-serif;
   }
   * { box-sizing:border-box; }
   html, body { margin:0; width:1920px; height:768px; overflow:hidden; }
   body { background:var(--graphite); color:var(--white); font-family:var(--text); position:relative; }
 
-  .photo { position:absolute; left:290px; top:122px; width:420px; height:525px; border-radius:32px; object-fit:cover; background:#EEF2F5;
-           box-shadow:0 0 0 2px #2E3740, 0 40px 120px rgba(60,198,194,.20); }
-  .shutter { position:absolute; left:750px; top:96px; width:10px; height:576px; border-radius:5px; background:var(--accent); }
-
-  .pill { position:absolute; left:810px; top:150px; display:inline-block; padding:12px 24px; border-radius:999px;
-          background:var(--accent); color:var(--graphite); font:600 26px/1 var(--text); }
-  h1 { position:absolute; left:810px; top:226px; width:800px; margin:0; text-wrap:balance;
-       font:700 52px/1.12 var(--display); letter-spacing:-0.025em; }
-  .sub { position:absolute; left:810px; top:452px; width:760px; margin:0; font:400 30px/1.4 var(--text); color:#B8C0C8; }
-  .name { position:absolute; left:810px; top:574px; font:600 30px/1 var(--text); color:var(--white); }
-  .logo { position:absolute; left:1330px; top:572px; display:inline-flex; align-items:stretch; font:700 34px/1 var(--display); letter-spacing:-0.02em; }
+  .pill { position:absolute; left:410px; top:184px; display:inline-block; padding:11px 22px; border-radius:999px;
+          background:var(--accent); color:var(--graphite); font:600 24px/1 var(--text); }
+  h1 { position:absolute; left:410px; top:248px; width:600px; margin:0; text-wrap:balance;
+       font:700 46px/1.1 var(--display); letter-spacing:-0.025em; }
+  .sub { position:absolute; left:410px; top:462px; width:600px; margin:0; font:400 26px/1.4 var(--text); color:#B8C0C8; }
+  .logo { position:absolute; left:410px; top:568px; display:inline-flex; align-items:stretch; font:700 32px/1 var(--display); letter-spacing:-0.02em; }
   .logo .was { color:var(--before); }
   .logo .cut { width:5px; margin:-5px 6px; border-radius:3px; background:var(--accent); }
 
-  .pen { position:absolute; left:470px; top:56px; font:600 46px/1.05 var(--hand); color:var(--accent); }
+  .shutter { position:absolute; left:1040px; top:150px; width:10px; height:480px; border-radius:5px; background:var(--accent); }
+
+  .phone { position:absolute; background:#0E1216; border-radius:40px; padding:14px;
+           box-shadow:0 0 0 2px #2E3740, 0 30px 90px rgba(60,198,194,.20); }
+  .phone .screen { width:390px; height:844px; overflow:hidden; border-radius:28px; background:#fff; transform-origin:0 0; }
+  .phone iframe { width:390px; height:844px; border:0; display:block; }
 </style>
 </head>
 <body>
-  <img class="photo" src="../../site/v1/img/mikhail.jpg" alt="">
-  <div class="shutter"></div>
-
   <div class="pill">Сайты для малого бизнеса</div>
   <h1>Знаю сервисный бизнес изнутри. Делаю для него сайты</h1>
   <p class="sub">Демо вашего сайта за 1-2 дня бесплатно. Платите, только если понравится.</p>
-  <div class="name">Михаил Узких</div>
   <div class="logo"><span class="was">пока</span><span class="cut"></span><span>жу</span></div>
+
+  <div class="shutter"></div>
+  <div id="phones"></div>
+
+  <script>
+    var D = "../../demos/";
+    function phone(x, y, s, demo, z) {
+      var w = 390 * s + 28, h = 844 * s + 28;
+      return '<div class="phone" style="left:' + x + 'px;top:' + y + 'px;width:' + w + 'px;height:' + h + 'px;z-index:' + z + '">' +
+             '<div class="screen" style="transform:scale(' + s + ')"><iframe src="' + D + demo + '/index.html" scrolling="no"></iframe></div></div>';
+    }
+    document.getElementById("phones").innerHTML =
+      phone(1090, 205, 0.44, "shinomontazh", 1) +
+      phone(1250, 172, 0.48, "barbershop", 3) +
+      phone(1410, 205, 0.44, "salon", 2);
+  </script>
 </body>
 </html>
