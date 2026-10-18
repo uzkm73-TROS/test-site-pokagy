@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Проверка обложки ВК в приложении</title>
+<style>
+  /* Макет «как обложка выглядит в мобильном ВК»: готовая обложка и поверх неё
+     элементы интерфейса приложения (кнопки в шапке, аватар, название, кнопка).
+     Разметка приблизительная, сделана по прежнему снимку проверки: положение элементов
+     в приложении ВК может отличаться. Нужна, чтобы убедиться, что текст и телефоны
+     на обложке не закрыты интерфейсом.
+     Снимок: окно 770x960, файл ../vk-cover-mobile-proverka.png */
+  html, body { margin: 0; width: 770px; height: 960px; overflow: hidden; background: #1D2329; }
+  .stage { position: relative; width: 770px; height: 960px; overflow: hidden; }
+  .stage img { position: absolute; left: -155px; top: -475px; width: 1080px; height: auto; display: block; }
+  .ui { position: absolute; font-family: "Onest", system-ui, sans-serif; }
+  .dot { width: 76px; height: 76px; border-radius: 50%; background: rgba(150, 156, 162, .85); }
+  .ava { left: 29px; top: 464px; width: 206px; height: 206px; border-radius: 50%; background: #FFFFFF; }
+  .name { left: 31px; top: 722px; width: 640px; color: #FFFFFF; font: 700 53px/1.12 Arial, sans-serif; text-shadow: 0 2px 10px rgba(0, 0, 0, .35); }
+  .btn { left: 31px; top: 858px; width: 480px; height: 68px; border-radius: 18px; background: #FFFFFF; }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <img src="../vk-cover-pokazhu-mobile.png" alt="">
+    <div class="ui dot" style="left:40px;top:80px"></div>
+    <div class="ui dot" style="left:470px;top:80px"></div>
+    <div class="ui ava"></div>
+    <div class="ui name">Покажу | сайты для<br>местного бизнеса</div>
+    <div class="ui btn"></div>
+  </div>
+</body>
+</html>
