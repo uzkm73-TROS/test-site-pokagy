@@ -78,6 +78,13 @@
     font-weight: 700; font-size: 14px; text-shadow: 0 1px 8px rgba(0, 0, 0, .6);
   }
   .tile:hover img { transform: scale(1.04); }
+  /* Большая плитка: клиентка с довольной улыбкой на всю высоту, справа ногти и лицо */
+  .mosaic { grid-template-columns: 1.25fr 1fr; }
+  .tile-main { grid-row: span 2; aspect-ratio: auto; }
+  .tile-main img { object-position: 50% 28%; }
+  .tile-main span { font-size: 16px; }
+  .tile-nails img { object-position: 50% 45%; }
+  .tile-face img { object-position: 50% 28%; }
 
   /* Шторки: единственное движение без участия человека */
   .intro .tile { animation: shutter .95s cubic-bezier(.7, 0, .2, 1) both; animation-delay: calc(var(--i) * .14s + .1s); }
@@ -92,6 +99,7 @@
     .hero h1 { margin-top: 24px; font-size: clamp(56px, 6vw, 84px); max-width: 11ch; }
     .hero-cta .btn { width: auto; justify-self: start; }
     .tile { aspect-ratio: auto; height: clamp(230px, calc((100vh - 170px) / 2), 380px); }
+    .tile-main { height: auto; }
   }
 
   /* Секции */
@@ -300,10 +308,9 @@
         <div class="hero-cta"><a class="btn" href="#visit" id="hero-cta">Собрать визит</a></div>
       </div>
       <div class="mosaic intro" id="mosaic">
-        <a class="tile" href="#visit" data-tab="hair" style="--i:0"><img src="img/volosy.jpg" alt="Волосы в движении" width="640" height="800"><span>Волосы</span></a>
-        <a class="tile" href="#visit" data-tab="nails" style="--i:1"><img src="img/nogti.jpg" alt="Красный маникюр" width="640" height="800"><span>Ногти</span></a>
-        <a class="tile" href="#visit" data-tab="face" style="--i:2"><img src="img/lico.jpg" alt="Вечерний макияж" width="640" height="800"><span>Лицо</span></a>
-        <a class="tile" href="#visit" data-tab="hair" style="--i:3"><img src="img/okrashivanie.jpg" alt="Медное окрашивание" width="640" height="800"><span>Окрашивание</span></a>
+        <a class="tile tile-main" href="#visit" data-tab="hair" style="--i:0"><img src="img/klientka.jpg" alt="Довольная клиентка со свежей укладкой" width="960" height="1280"><span>Волосы</span></a>
+        <a class="tile tile-nails" href="#visit" data-tab="nails" style="--i:1"><img src="img/nogti-ruka.jpg" alt="Свежий красный маникюр, за рукой смеётся клиентка" width="960" height="1280"><span>Ногти</span></a>
+        <a class="tile tile-face" href="#visit" data-tab="face" style="--i:2"><img src="img/lico-smeh.jpg" alt="Смеющаяся клиентка с сияющей кожей и свежим макияжем" width="960" height="1280"><span>Лицо</span></a>
       </div>
     </div>
   </section>
