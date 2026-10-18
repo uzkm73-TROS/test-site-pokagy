@@ -8,7 +8,7 @@
   /* Нарисованный цветок распускается: кадр задаётся параметром t от 0 до 1 (bloom.html?t=0.5).
      Видео собирается из кадров, см. README.md. Размер 1080x1350 (4:5), стиль «Графит». */
   :root {
-    --white:#FFFFFF; --graphite:#1D2329; --before:#9AA3AD; --accent:#3CC6C2;
+    --white:#FFFFFF; --graphite:#1D2329; --before:#9AA3AD; --accent:#00D9CC;
     --display:"Unbounded", sans-serif; --text:"Onest", sans-serif; --hand:"Caveat", cursive;
   }
   * { box-sizing:border-box; }
@@ -98,7 +98,7 @@
              '<circle cx="' + (k * 7) + '" cy="' + (-L) + '" r="' + (9 * st) + '" fill="#fff" stroke="#1D2329" stroke-width="3"/></g>';
     }
   }
-  svg += row(6, 27, "#3CC6C2", 0.92, 3);
+  svg += row(6, 27, "#00D9CC", 0.92, 3);
   /* Центральный лепесток, светлее остальных */
   svg += '<g transform="rotate(0)"><path d="' + petal(36 + 12 * e, 3, (130 + 62 * e)) + '" fill="#8FE6E2" stroke="#E9FBFA" stroke-width="4.5" stroke-linejoin="round"/></g>';
   svg += '</g>';
@@ -111,7 +111,7 @@
       var a = r[0] * Math.PI / 180, r0 = r[1], r1 = r[1] + 46 * sp;
       var x0 = HX + Math.sin(a) * r0, y0 = HY - 120 - Math.cos(a) * r0;
       var x1 = HX + Math.sin(a) * r1, y1 = HY - 120 - Math.cos(a) * r1;
-      svg += '<line x1="' + x0.toFixed(1) + '" y1="' + y0.toFixed(1) + '" x2="' + x1.toFixed(1) + '" y2="' + y1.toFixed(1) + '" stroke="#3CC6C2" stroke-width="6" stroke-linecap="round"/>';
+      svg += '<line x1="' + x0.toFixed(1) + '" y1="' + y0.toFixed(1) + '" x2="' + x1.toFixed(1) + '" y2="' + y1.toFixed(1) + '" stroke="#00D9CC" stroke-width="6" stroke-linecap="round"/>';
     });
   }
   document.getElementById("art").innerHTML = svg;

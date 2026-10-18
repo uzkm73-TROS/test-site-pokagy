@@ -7,7 +7,7 @@
 <style>
   /* Вариант Б «Графит», выбран Михаилом 11.10.2026. Размер 1080x1350 (4:5). */
   :root {
-    --white:#FFFFFF; --graphite:#1D2329; --before:#9AA3AD; --accent:#3CC6C2;
+    --white:#FFFFFF; --graphite:#1D2329; --before:#9AA3AD; --accent:#00D9CC;
     --display:"Unbounded", sans-serif; --text:"Onest", sans-serif; --hand:"Caveat", cursive;
   }
   * { box-sizing:border-box; }
@@ -22,7 +22,7 @@
 
   /* Телефон с живым демо */
   .phone { position:absolute; background:#0E1216; border-radius:64px; padding:16px;
-           box-shadow:0 0 0 2px #2E3740, 0 40px 120px rgba(60,198,194,.22); }
+           box-shadow:0 0 0 2px #2E3740, 0 40px 120px rgba(0,217,204,.22); }
   .phone .screen { position:relative; width:390px; height:844px; overflow:hidden; border-radius:48px; background:#fff; transform-origin:0 0; }
   .phone iframe { width:390px; height:844px; border:0; display:block; }
 
@@ -81,7 +81,7 @@
            '<div class="screen" style="transform:scale(' + scale + ')">' + inner + '</div></div>';
   }
   function arrow(x, y, w, h, d) {
-    return '<svg style="left:' + x + 'px;top:' + y + 'px" width="' + w + '" height="' + h + '" viewBox="0 0 ' + w + ' ' + h + '"><path d="' + d + '" fill="none" stroke="#3CC6C2" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    return '<svg style="left:' + x + 'px;top:' + y + 'px" width="' + w + '" height="' + h + '" viewBox="0 0 ' + w + ' ' + h + '"><path d="' + d + '" fill="none" stroke="#00D9CC" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   }
 
   /* Крупная цифра вместо телефона: layout=num, текст цифры в параметре num */
