@@ -12,19 +12,19 @@
   html, body { margin:0; width:1920px; height:768px; overflow:hidden; }
   body { background:var(--graphite); color:var(--white); font-family:var(--text); position:relative; }
 
-  /* Безопасная зона: x 290-1630, y 110-660 (отступы 10-15% по справке ВК) */
-  .safe { position:absolute; left:290px; top:110px; width:1340px; height:550px; outline:2px dashed rgba(255,80,80,.0); }
+  /* Безопасная зона для ПК: ВК показывает среднюю полосу картинки, y 142-625 (проверено в редакторе обложки 18 октября 2026). Всё важное - строго внутри y 150-618. Остальное видно только в мобильной версии. */
+  .safe { position:absolute; left:290px; top:150px; width:1340px; height:468px; outline:2px dashed rgba(255,80,80,.0); }
 
-  .pill { position:absolute; left:290px; top:170px; display:inline-block; padding:12px 24px; border-radius:999px;
+  .pill { position:absolute; left:290px; top:190px; display:inline-block; padding:12px 24px; border-radius:999px;
           background:var(--accent); color:var(--graphite); font:600 26px/1 var(--text); }
-  h1 { position:absolute; left:290px; top:244px; width:700px; margin:0;
+  h1 { position:absolute; left:290px; top:262px; width:700px; margin:0;
        font:700 66px/1.06 var(--display); letter-spacing:-0.025em; }
   .sub { position:absolute; left:290px; top:490px; width:640px; margin:0; font:400 30px/1.4 var(--text); color:#B8C0C8; }
   .logo { position:absolute; left:290px; top:590px; display:inline-flex; align-items:stretch; font:700 34px/1 var(--display); letter-spacing:-0.02em; }
   .logo .was { color:var(--before); }
   .logo .cut { width:5px; margin:-5px 6px; border-radius:3px; background:var(--accent); }
 
-  .shutter { position:absolute; left:1090px; top:96px; width:10px; height:700px; border-radius:5px; background:var(--accent); }
+  .shutter { position:absolute; left:1090px; top:150px; width:10px; height:468px; border-radius:5px; background:var(--accent); }
 
   .phone { position:absolute; background:#0E1216; border-radius:56px; padding:14px;
            box-shadow:0 0 0 2px #2E3740, 0 40px 120px rgba(0,217,204,.20); }
@@ -52,9 +52,9 @@
              '<div class="screen" style="transform:scale(' + s + ')"><iframe src="' + D + demo + '/index.html" scrolling="no"></iframe></div></div>';
     }
     document.getElementById("phones").innerHTML =
-      phone(1150, 170, 0.62, "shinomontazh", 1) +
-      phone(1330, 120, 0.66, "barbershop", 3) +
-      phone(1520, 190, 0.62, "salon", 2);
+      phone(1190, 180, 0.48, "shinomontazh", 1) +
+      phone(1345, 160, 0.50, "barbershop", 3) +
+      phone(1500, 180, 0.48, "salon", 2);
   </script>
 </body>
 </html>
